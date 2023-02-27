@@ -10,6 +10,14 @@ cmake_minimum_required(VERSION 3.0)
 add_executable(depotMgr depotSort.cpp)
 project(depotMgr)
 
+find_package(OpenCV)
+find_package(aruco REQUIRED)
+
+#Locating OpenCV_... isn't an echo $ thing, ask cmake if you want to know
+message(STATUS "OpenCV_INCLUDE_DIRS = ${OpenCV_INCLUDE_DIRS}")
+message(STATUS "OpenCV_LIBS = ${OpenCV_LIBS}")
+message(STATUS "aruco_INCLUDE_DIRS: " ${aruco_INCLUDE_DIRS})
+
 #will build w/o OpenCV incl/links, must already be in aruco .so
 find_package( OpenCV REQUIRED )
 include_directories( ${OpenCV_INCLUDE_DIRS})
