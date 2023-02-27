@@ -53,50 +53,6 @@ cv::Mat __resize(const cv::Mat& in, int width)
     return im2;
 }
 
-
-
-std::ostream& operator<<(std::ostream& str, const Group& group)
-{
-    str << "{";
-
-    uint first = 0;
-
-    for (Bin * pBin : group.vpBins )
-    {
-        str << (first++?", ":"") << static_cast<uint>(group.get_position(*pBin));
-    }
-    str << "}" << endl;
-
-    return str;
-}
-
-bool operator< (Bin & bin, Group & group)
-{
-    float group_low_range = group.getRangeMin();
-    uint bin_value = group.get_position(bin);
-
-    //cout    << "bin's value of " << bin_value <<  ( bin_value < group_low_range ? " < ":" ≮ ")
-    //        << " column's low range " << group_low_range << endl;
-
-    return  bin_value < group_low_range ;
-}
-
-bool operator> (Bin & bin, Group & group)
-{
-    float group_hi_range = group.getRangeMax();
-    uint bin_value = group.get_position(bin);
-
-    //cout    << "bin's value " << bin_value <<  (bin_value > group_hi_range ? " > ":"≯ ")
-    //        << " column's high range" << group_hi_range << endl;
-
-    return  bin_value > group_hi_range ;
-}
-
-bool operator== (Bin & bin, Group & group)
-{
-    return  ((!(bin<group))&&(!(bin>group))) ;
-}
-
 int main(int argc, char** argv)
 {
     vector<Marker> Markers;

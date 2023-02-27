@@ -6,6 +6,8 @@
 
 #ifndef QC_GROUP_H
 #define QC_GROUP_H
+
+//Pure Virtual Base class for Columns and Rows which are ... groups of things
 class Group{
     private:
         Group():wiggle(0.0f){}
@@ -21,14 +23,14 @@ class Group{
 
     Group(const float _wiggle) : wiggle(_wiggle)
     {
-        //cout << "There are now " << ++Group::count << " Groups." << endl;
+        //cout << "There are now " << ++Group::count << " Groups." << std::endl;
     }
 
     ~Group()
     {
         //for (Bin * pBin : vpBins) delete pBin;
 
-        //cout << "There are now "<< --Group::count <<" Groups." << endl;
+        //cout << "There are now "<< --Group::count <<" Groups." << std::endl;
         
         //cout << "There are " << (Group::count ? "still Groups to destruct!" : "no more Groups" ) <<endl;;
     }
@@ -52,10 +54,10 @@ class Group{
     bool addBin(Bin * pBin)
     {
         vpBins.push_back(pBin);
-        //cout << "num bins in column is now " << vpBins.size() << endl;
+        //cout << "num bins in column is now " << vpBins.size() << std::endl;
         Bin & bin = *pBin;
         sum += get_position(bin);
-        //cout << "Added bin w/ value: "<< pBin->marker.getCenter().x << " to column. Column avg is now: " << sum << "/" << vpBins.size() << " = " << sum/vpBins.size() << endl;
+        //cout << "Added bin w/ value: "<< pBin->marker.getCenter().x << " to column. Column avg is now: " << sum << "/" << vpBins.size() << " = " << sum/vpBins.size() << std::endl;
 
         return true;
     }
@@ -97,4 +99,46 @@ class Row:public Group
 };
 
 size_t Group::count = 0;
+
+std::ostream& operator<<(std::ostream& str, const Group& group)
+{
+    str << "{";
+
+    uint first = 0;
+
+    for (Bin * pBin : group.vpBins )
+    {
+        str << (first++?", ":"") << static_cast<uint>(group.get_position(*pBin));
+    }
+    str << "}" << std::endl;
+
+    return str;
+}
+
+bool operator< (Bin & bin, Group & group)
+{
+    float group_low_range = group.getRangeMin();
+    uint bin_value = group.get_position(bin);
+
+    //cout    << "bin's value of " << bin_value <<  ( bin_value < group_low_range ? " < ":" ≮ ")
+    //        << " column's low range " << group_low_range << std::endl;
+
+    return  bin_value < group_low_range ;
+}
+
+bool operator> (Bin & bin, Group & group)
+{
+    float group_hi_range = group.getRangeMax();
+    uint bin_value = group.get_position(bin);
+
+    //cout    << "bin's value " << bin_value <<  (bin_value > group_hi_range ? " > ":"≯ ")
+    //        << " column's high range" << group_hi_range << std::endl;
+
+    return  bin_value > group_hi_range ;
+}
+
+bool operator== (Bin & bin, Group & group)
+{
+    return  ((!(bin<group))&&(!(bin>group))) ;
+}
 #endif
