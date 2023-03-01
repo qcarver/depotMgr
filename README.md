@@ -15,3 +15,9 @@ Notes:
 1) arucoConfig.yml is a configuration file to improve results. You should make your own, see aruco site for details
 2) There is no two.
 
+Use-case:
+1) Enter a bin number or an item to search for
+2) Return the picture of shelves w a box drawn around the bin of interest
+
+Demo:
+![demo from Jan 28, 2023](depotMgr_demo_screenshot.png)

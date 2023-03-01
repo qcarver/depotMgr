@@ -62,6 +62,16 @@ class Group{
         return true;
     }
 
+    bool containsBin(int id)
+    {
+        bool found = false;
+        for (Bin * pBin : vpBins)
+        {
+            found |= pBin->marker.id == id;
+        }
+        return found;
+    }
+
     bool isEmpty()
     {
         return vpBins.size();
