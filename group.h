@@ -1,154 +1,68 @@
 //2023 qcarver@gmail.com MIT license 
-
-#include "bin.h"
+#include <aruco.h>
 #include <iostream>
 #include <string>
 
 #ifndef QC_GROUP_H
 #define QC_GROUP_H
 
+#define COLUMN_WIGGLE 0.13f
+#define ROW_WIGGLE 0.095f
+
 //Pure Virtual Base class for Columns and Rows which are ... groups of things
 class Group{
     private:
         Group():wiggle(0.0f){}
-
+        Group(const aruco::Marker & binMarker):wiggle(0.0f){}
     public:
-        static size_t count;
-        virtual uint get_position(const Bin & bin) const = 0;
+    static size_t count;
+    virtual uint get_position(const aruco::Marker & binMarker) const = 0;
 
     protected:
-        std::vector<Bin *> vpBins;
-        uint sum = 0;
-        const float wiggle;// = 0.12f;
+    std::vector<int> binMarkers;
+    uint sum = 0;
+    const float wiggle;// = 0.12f;
 
-    Group(const float _wiggle) : wiggle(_wiggle)
-    {
-        //cout << "There are now " << ++Group::count << " Groups." << std::endl;
-    }
-
-    ~Group()
-    {
-        //for (Bin * pBin : vpBins) delete pBin;
-
-        //cout << "There are now "<< --Group::count <<" Groups." << std::endl;
-        
-        //cout << "There are " << (Group::count ? "still Groups to destruct!" : "no more Groups" ) <<endl;;
-    }
+    Group(const float _wiggle) : wiggle(_wiggle){};
 
     public: 
-    float getAvg()
-    {
-        return (vpBins.size())?sum/vpBins.size():0;
-    }
+    float getAvg() const;
 
-    float getRangeMin()
-    {
-        return getAvg()*(1-wiggle);
-    }
+    float getRangeMin() const;
 
-    float getRangeMax()
-    {
-        return getAvg()*(1+wiggle);
-    }
+    float getRangeMax() const;
 
-    bool addBin(Bin * pBin)
-    {
-        vpBins.push_back(pBin);
-        //cout << "num bins in column is now " << vpBins.size() << std::endl;
-        Bin & bin = *pBin;
-        sum += get_position(bin);
-        //cout << "Added bin w/ value: "<< pBin->marker.getCenter().x << " to column. Column avg is now: " << sum << "/" << vpBins.size() << " = " << sum/vpBins.size() << std::endl;
+    bool addBin(const aruco::Marker & binMarker);
 
-        return true;
-    }
+    bool containsBin(int id) const;
 
-    bool containsBin(int id)
-    {
-        bool found = false;
-        for (Bin * pBin : vpBins)
-        {
-            found |= pBin->marker.id == id;
-        }
-        return found;
-    }
-
-    bool isEmpty()
-    {
-        return vpBins.size();
-    }
+    bool isEmpty() const;
 
     friend std::ostream& operator<<(std::ostream& str, const Group& group);
 };
 
 class Column:public Group
 {
+    private:
+    Column() : Group(COLUMN_WIGGLE){};
+
     public:
-    Column() : Group(0.13f){}
-
-    ~Column()
-    {
-        //for (Bin * pBin : vpBins) delete pBin;
-    }
-
-    virtual uint get_position(const Bin & bin) const
-    {
-        return bin.marker.getCenter().x;
-    }
+    Column(aruco::Marker & binMarker):Group(COLUMN_WIGGLE){};
+    uint get_position(const aruco::Marker & binMarker) const override;
 };
 
 class Row:public Group
 {
+    private:
+    Row() : Group(ROW_WIGGLE){};
+
     public:
     //Rows get a little more wiggle b/c there are fewer of them
-    Row() : Group(0.095f){}
+    Row(aruco::Marker & binMarker) : Group(ROW_WIGGLE){};
 
-    virtual uint get_position(const Bin & bin) const
-    {
-        return bin.marker.getCenter().y;
-    }
+    virtual uint get_position(const aruco::Marker & binMarker) const override;
 };
 
-size_t Group::count = 0;
 
-std::ostream& operator<<(std::ostream& str, const Group& group)
-{
-    str << "{";
 
-    uint first = 0;
-
-    for (Bin * pBin : group.vpBins )
-    {
-        str << (first++?", ":"") << static_cast<uint>(group.get_position(*pBin));
-    }
-    str << "}" << std::endl;
-
-    return str;
-}
-
-bool operator< (Bin & bin, Group & group)
-{
-    float group_low_range = group.getRangeMin();
-    uint bin_value = group.get_position(bin);
-
-    //cout    << "bin's value of " << bin_value <<  ( bin_value < group_low_range ? " < ":" ≮ ")
-    //        << " column's low range " << group_low_range << std::endl;
-
-    return  bin_value < group_low_range ;
-}
-
-bool operator> (Bin & bin, Group & group)
-{
-    float group_hi_range = group.getRangeMax();
-    uint bin_value = group.get_position(bin);
-
-    //cout    << "bin's value " << bin_value <<  (bin_value > group_hi_range ? " > ":"≯ ")
-    //        << " column's high range" << group_hi_range << std::endl;
-
-    return  bin_value > group_hi_range ;
-}
-
-bool operator== (Bin & bin, Group & group)
-{
-    return  ((!(bin<group))&&(!(bin>group))) ;
-}
 #endif

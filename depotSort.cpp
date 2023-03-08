@@ -32,8 +32,7 @@ or implied, of Rafael Muñoz Salinas.
 #include <opencv2/imgproc/imgproc.hpp>
 #include <string>
 #include <stdexcept>
-#include "bin.h"
-#include "group.h"
+#include "rack.h"
 
 using namespace cv;
 using namespace std;
@@ -57,81 +56,8 @@ cv::Mat __resize(const cv::Mat& in, int width)
 
 bool findBin(vector<Marker> Markers, int bin)
 {
-    bool found = false;
-    
-    //Max vectors of columns and rows and their avg
-    vector<Column *> vpColumns;
-    vector<Row *> vpRows;
-
-    // for each marker, consider its handle to be it's position in the vector of detections ..construction
-    for (Marker & marker : Markers)
-    {
-        Bin * pBin = new Bin(marker);
-        bool added_to_existing = false;
-        
-        for (Column * column : vpColumns)
-        {
-            if (*pBin < *column)  continue;
-
-            else if (*pBin == *column){
-                added_to_existing = column->addBin(pBin);
-                break;
-            }
-        }
-        if (!added_to_existing)
-        {
-            Column * column = new Column;
-            column->addBin(pBin);
-            vpColumns.emplace_back(column);
-        }
-
-        added_to_existing = false;
-
-        for (Row * row : vpRows)
-        {
-            if (*pBin < *row)  continue;
-
-            else if (*pBin == *row){
-                added_to_existing = row->addBin(pBin);
-                break;
-            }
-        }
-        if (!added_to_existing)
-        {
-            Row * row = new Row;
-            row->addBin(pBin);
-            vpRows.emplace_back(row);
-        }
-    }
-
-    //this will go in a search function
-    cout << "looking for bin " << bin << endl;
-    for (Column * pColumn : vpColumns)
-    {
-        if (pColumn->containsBin(bin))
-        cout << "Bin found in column which has X coord avg " << pColumn->getAvg() << endl;
-    }
-    
-    for (Row * pRow : vpRows)
-    {
-        if (pRow->containsBin(bin))
-        cout << "Bin found in row which has Y coord avg " << pRow->getAvg() << endl;
-    }
-
-
-    //this will go in a destructor
-    for (Column * pColumn : vpColumns)
-    {
-        //cout << "Avg: " << pColumn->getAvg() <<  *pColumn << endl;
-        delete pColumn;
-    }
-
-    for (Row * pRow : vpRows)
-    {
-        //cout << "Avg: " << pRow->getAvg() <<  *pRow << endl;
-        delete pRow;
-    }
-    return found;
+    Rack rack(Markers);
+    return rack.findBinRow(bin) && rack.findBinColumn(bin);
 }
 
 int main(int argc, char** argv)
@@ -219,9 +145,6 @@ int main(int argc, char** argv)
 
     //wait for the window to close then.. continue
     while (cv::getWindowProperty(window_name, 1) >= 0) cv::waitKey(50);
-
-    cout << "num columns before exit: " << Group::count << ", num bins before exit: " << Bin::count << endl;
-    cout << "num row before exit: " << Group::count << ", num bins before exit: " << Bin::count << endl;
 
 }
 

@@ -21,3 +21,8 @@ Use-case:
 
 Demo:
 ![demo from Jan 28, 2023](depotMgr_demo_screenshot.png)
+
+TODO:
+1) Problem w/ storing Bins as objects is that there will be two of them on for Column, one for Row
+2) Suggest Storing Marker references in Rows and Columns instead of Bin objects
+3) Keep a vector of Bin objects else where which also has a Marker reference

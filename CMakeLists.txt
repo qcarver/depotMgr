@@ -7,7 +7,12 @@ set(CMAKE_CXX_EXTENSIONS ON) #...with compiler extensions like gnu++11
 
 cmake_minimum_required(VERSION 3.0)
 
-add_executable(depotMgr depotSort.cpp)
+file(GLOB SOURCES
+    *.h
+    *.cpp
+)
+
+add_executable(depotMgr ${SOURCES})
 project(depotMgr)
 
 find_package(OpenCV)
