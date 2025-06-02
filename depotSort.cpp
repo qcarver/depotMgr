@@ -118,19 +118,34 @@ int main(int argc, char** argv)
         {
             if (Markers[i].id == bin)
             {
+                //draw found markers in green thick font
                 cout << Markers[i] << endl;
-                Markers[i].draw(InImage, Scalar(127,127, 0), 0, true);
+                Markers[i].draw(InImage, Scalar(0,255, 0), 6, true,false);
                 break;
             } 
             //if the bin is not found or user didn't care, mark bin as false
             else if (i == Markers.size()-1) bin = 0;
+            /*else //draw other markers in thin red font
+            {
+                Markers[i].draw(InImage, Scalar(255,0, 0), 4, true,false);
+
+            }*/
         }
 
         if (bin)
         {
             // show input with augmented information
-            cv::namedWindow(window_name, 1); 
-            cv::imshow(window_name, __resize(InImage,1280));
+	    if (!InImage.empty()){
+                std::string window_name = "location";
+                cv::namedWindow(window_name, 1); 
+                cv::imshow(window_name, __resize(InImage,1280));
+                cout << "Num markers detected: " << Markers.size() << endl;
+                findBin(Markers,bin);
+	    } else {
+		//set bin to false - even though we found it - flags no image to show
+                std::cerr << "Error: InImage is empty — skipping imshow()\n";
+	    }
+
         }
 
     }
@@ -139,12 +154,9 @@ int main(int argc, char** argv)
         cout << "Exception :" << ex.what() << endl;
     }
 
-    cout << "Num markers detected: " << Markers.size() << endl;
-
-    if (bin) findBin(Markers,bin);
 
     //wait for the window to close then.. continue
-    while (cv::getWindowProperty(window_name, 1) >= 0) cv::waitKey(50);
+    while (bin && cv::getWindowProperty(window_name, 1) >= 0) cv::waitKey(50);
 
 }
 

@@ -1,4 +1,1097 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <inventory>
-    <bin id=
+	<bin id="13" name="Suz'"/>
+	<bin id="82" name="Audio Cables"/>
+	<bin id="89" name="Audio Jacks"/>
+	<bin id="30" name="Salvage"/>
+	<bin id="34" name="Serial/Parallel Drivers \n Audio/Visual ICs"/>
+	<bin id="16" name="Flip-Flops Latches Counter ICs"/>
+	<bin id="115" name="CD/DVD Roms"/>
+	<bin id="12" name="Optics"/>
+	<bin id="111" name="Belts"/>
+	<bin id="17" name="Paint Brushes"/>
+	<bin id="24" name="Pull Card "/>
+	<bin id="28" name="Pre 2K Micros"/>
+	<bin id="29" name="Logic Gate ICs">
+		<item>
+			<name>74S260</name>
+			<quantity>3</quantity>
+			<description>5 input NOR gate IC, 14 pin DIP</description>
+			<manual>74260_5InputNorIc.pdf</manual>	
+		</item>
+		<item>
+			<name>74LS27N</name>
+			<quantity>3</quantity>
+			<description>3 input NOR gate IC, 14 pin DIP</description>
+		</item>
+		<item>
+			<name>7474S</name>
+			<quantity>3</quantity>
+			<description>Dual-D Flip-Flop</description>
+		</item>
+	</bin>
+	<bin id="119" name="Brackets"/>
+	<bin id="20" name="Heat Sinks"/>
+	<bin id="21" name=""/>
+	<bin id="56" name=""/>
+	<bin id="57" name="Legacy Video Cables">
+		<item>
+			<name>RCA Video Audio Composite Cable</name>
+			<quantity>3</quantity>
+			<description>triplet yellow, red, white, male-male</description>
+		</item>
+		<item>
+			<name>cut-off Video component cable</name>
+			<description>yellow RCA male ends in 2' wire</description>
+		</item>
+		<item>
+			<name>cut-off head phone jack cable</name>
+			<description>yellow right angle 3.5 mm stereo male, ends in 6' wire</description>
+		</item>
+		<bag>
+		<item>
+			<name>S-Video Cable</name>
+			<condition>new</condition>
+			<description>2'. male-male</description>
+		</item>
+		</bag>
+		<item>
+			<name>S-Video Cable</name>
+			<description>Gold. 6'. male-male</description>
+		</item>
+		<item>
+			<name>HDMI Extension Cable</name>
+			<description>Gold. 3'. male-female</description>
+		</item>
+		<item>
+			<name>HDMI Cable</name>
+			<description>5'. male-male</description>
+		</item>
+		<item>
+			<name>VGA Monitor Cable</name>
+			<quantity>3</quantity>
+			<description>indigo head color. male-male</description>
+		</item>
+		<item>
+			<name>UHF VHF back of TV cable</name>
+			<description>screw terminals on one end, cut on other.2 wires, ribbon shaped</description>
+		</item>
+		<item>
+			<name>headphone to RCA breakout</name>
+			<description>3.5 mm black right angle stereo jack on one end, yellow and black RCA on other end</description>
+		</item>
+	</bin>
+	<bin id="53" name=""/>
+	<bin id="52" name="Nails"/>
+	<bin id="67" name="Alarm"/>
+	<bin id="71" name="Game Controllers"/>
+	<bin id="68" name="Signal Conditioners">
+		<contents>
+			<item>
+				<quantity>3</quantity>	
+				<PN>LM3900N</PN>
+				<description>Quadruple Norton Op Amp</description>
+				<manual>lm3900.pdf</manual>	
+			</item>	
+			<item>
+				<quantity>1</quantity>
+				<brand>TI</brand>
+				<PN>THS7314</PN>
+				<description>3-Channel SDTV Video Amplifier. Mounted on SOIC to DIP adapter</description>
+				<notes>Used for Nates video amplifier project 10/08.23</notes>
+
+				<picture>THS7314_videoamp_SOIC8onaDIP.png</picture>
+				<manual>TI_7314_SOIC8.pdf</manual>	
+			</item>
+		</contents>
+	</bin>
+	<bin id="69" name="Drone"/>
+	<bin id="61" name="Cheer Wing"/>
+	<bin id="63" name="Head"/>
+	<bin id="32" name="Wood Working Screws"/>
+	<bin id="19" name="LEDs"/>
+	<bin id="49" name="Buttons"/>
+	<bin id="10" name="New ICs"/>
+	<bin id="60" name="Hardware Protfolio"/>
+	<bin id="80" name="Merch Springs 2"/>
+	<bin id="77" name="Merch Springs1"/>
+	<bin id="81" name="Models"/>
+	<bin id="97" name="light switch"/>
+	<bin id="59" name="Interfaces LCD">
+		<item>
+			<name>IP720 Salvaged Phone Interface</name>
+			<description>Multiline LCD with 15 buttons and LEDs. Gray</description>
+			<picture>IP720_Salvaged_Phone_Interface.png</picture>
+			<quantity>3</quantity>
+		</item>
+		<item>
+			<name>0.91 Inch OLED SSD1306 128X32 Blue</name>
+			<description>TZT 0.91 inch OLED Module White/Blue OLED 128X32 OLED LCD LED Display Module 0.91" IIC Communicate For Arduino ROHS</description>
+			<picture>0.91_Inch_OLED.png</picture>
+			<condition>new in mylar bag</condition>
+		</item>
+		<item>
+			<name>LCD Keypad Shield</name>
+			<description>Arduino Uno style shield,6 buttons labeled directionally and select and reset</description>
+			<picture>LCD_keypad_shield.jpg</picture>
+			<condition>new in mylar bag</condition>
+		</item>
+		<item>
+			<name>QPASS 1602A</name>
+			<description>3x1"~Blue~OLED.Text display</description>
+			<condition>new.opened.in red bubble wrap</condition>
+			<pictures>
+				<picture>QPASS_1602A_back.jpg</picture>
+				<picture>QPASS_1602A_front.jpg</picture>
+			</pictures>
+			<quantity>3</quantity>
+		</item>
+		<item>
+			<name>992 LCD Boards REV.2 'H'</name>
+			<description>5x2".Not BackLit LCD. Direction pads w/o buttons. Salvaged from line feed printers.090-9920032-CO.94V0 1.6mmTHK.ЯU 0529.94V0-D▲</description>
+			<condition>salvaged.good.</condition>
+			<pictures>
+				<picture>MM153-A03_MCUBoard_OLED_Display_back.jpg</picture>
+				<picture>MM153-A03_MCUBoard_OLED_Display_front.jpg</picture>
+			</pictures>
+			<quantity>6</quantity>
+		</item>QPASS_1602A_back.jpg
+		<item>
+			<name>MM153-A03 MCUBoard,~OLED Display</name>
+			<description>FR4 1.0mm REVC1, DATE:2011-05-16</description>
+			<condition>salvaged</condition>
+		</item>
+		<item>
+			<name>PRO-S7947G 0520 LCD Disply</name>
+			<description>simple lcd disply, no micro</description>
+			<pictures>
+				<picture>PRO_S7947G_front.jpg</picture>
+				<picture>PRO_S7947G_back.jpg</picture>
+			</pictures>
+			<condition>salvaged</condition>
+		</item>
+	</bin>
+	<bin id="51" name="Jacks"/>
+	<bin id="65" name="Bags"/>
+	<bin id="64" name="Jail Break Me"/>
+	<bin id="62" name="Computer Bussing"/>
+	<bin id="78" name="Transistors">
+		<contents>
+			<bag name="PNP BEC" style="zip lock bag">
+			<item>
+				<name>MPS H81 M252</name>
+				<manual>MPSH81_PNP.PDF</manual>
+				<description>TO-92 PNP RF Transistor</description>				<quantity type="estimate">1042</quantity>
+			</item>
+			</bag>
+			<bag name="VC3908T Programmable Voltage Clamp" style="pink anti-static zip lock bag">
+			<item>
+				<name>UC3908T</name>
+				<manual>5PIN-TO-220_UC3908T_Pgmbl_Voltage_Clamp.pdf</manual>
+				<description>Programmable voltage clamp</description>				<quantity>13</quantity>
+			</item>
+			</bag>
+			<bag name="NPN 3904" style="zip lock bag">
+			<item>
+				<name>2N 3904 H 331</name>
+				<manual>2N_3904_NPN.PDF</manual>
+				<description>TO-92 NPN General Purpose Transistor</description>
+				<quantity type="estimate">142</quantity>
+			</item>
+			</bag>
+			<bag name="V. Regulators" style="zip lock with clear front and mylar back">
+			<item>
+				<name>LM 317</name>
+				<description>TO-220 adjustable power supply</description>
+				<quantity>1</quantity>
+			</item>
+			<item>
+				<name>LM 1085 IT-3.3</name>
+				<description>TO-220 3.3V power supply</description>
+				<quantity>1</quantity>
+			</item>
+			<item>
+				<name>78M10</name>
+				<description>TO220-3 10V 0.5Amp voltage regulator</description>
+				<quantity>1</quantity>
+			</item>
+			<item>
+				<name>78M12</name>
+				<description>TO220-3 12V 0.5Amp voltage regulator</description>
+				<quantity>1</quantity>
+			</item>
+			<item>
+				<name>7824</name>
+				<description>TO220-3 V 1.5Amp voltage regulator</description>
+				<quantity>1</quantity>
+			</item>
+			<item>
+				<name>78M05</name>
+				<description>TO220-3 5V 0.5Amp voltage regulator</description>
+				<quantity>1</quantity>
+			</item>
+			<item>
+				<name>7805</name>
+				<description>TO220-3 5V 1.5Amp voltage regulator</description>
+				<quantity>1</quantity>
+			</item>
+			<item>
+				<name>780-05</name>
+				<description>TO220-3 5V 1.5Amp voltage regulator</description>
+				<quantity>1</quantity>
+			</item>
+			<item>
+				<name>NTE956</name>
+				<description>TO220-3 Adjustable Positive Voltage regulator</description>
+				<condition>pretty beat up</condition>
+				<manual>nte956_TO220-3_voltage_regulator.pdf</manual>
+				<quantity>1</quantity>
+			</item>
+			<item>
+				<name>TIP31 Transistor</name>
+				<description>NPN Silicon Transistor Radio Shack Cat No. 276-2017</description>
+				<condition>Almost new, taped back into original packaging</condition>
+			</item>
+			<item>
+				<name>TIP42 Transistor</name>
+				<description>PNP Transistor designed for power amplifier and high speed switching. Cat No. 276-2027</description>
+				<condition>New, original packaging</condition>
+				<quantity>2</quantity>
+			</item>
+			<bag style="mylar 5x3 ziploc">
+			<item>
+				<name>BC337</name>
+				<description>NPN SS Audio Amplifier transistor. Central semi bipolar transistor - BJT. Mouser P/N: 610-BC337</description>
+				<condition>unused</condition>
+				<quantity>3</quantity>
+			</item>
+			</bag>
+			<bag name="LM78M15CT" style="pink 7x4&quot; anti-static ziploc bag">
+			<item>
+				<name>LM78M15CT</name>
+				<description>TO-220 Package, +15 Voltage Regulator. Input NLT 7.2V. Output Amps 0.5. Transistor</description>
+				<condition>unused loose</condition>
+				<manual>LM78M15CT.pdf</manual>
+				<quantity>~32</quantity>
+			</item>
+			</bag>
+			<item>
+				<name>TIP121</name>
+				<description>Transistor for power switching up to 80V, gate takes 5V. Collector cut-off current 200mA</description>
+				<condition>new in short sleeve</condition>
+				<manual>TIP121.pdf</manual>
+				<quantity>4</quantity>
+			</item>
+			<item>
+				<name></name>
+				<description></description>
+				<condition></condition>
+				<manual></manual>
+				<quantity></quantity>
+			</item>
+			<bag name="" style="">
+			</bag>
+			</bag>
+			<bag name="7805" style="small ziplock with 4 cut clear plastic tubes inside">
+				<item>
+					<name>7805</name>
+					<description>TO220-3 5V 1.5Amp voltage regulator</description>
+					<quantity>18</quantity>
+				</item>
+			</bag>
+			<bag name="MPSU55" style="pink anti-static folded-over taped">
+			<item>
+				<name>MPSU55</name>
+				<description>PNP Silicon Anular Amplifier Transistor designed for general-purpose, high-voltage amplifier and driver applications</description>
+				<condition>new</condition>
+				<manual>MPSU55_amplifier.pdf</manual>
+				<quantity>25</quantity>
+			</item>
+			</bag>
+			<bag name="MV104 Qty75" style="small ziploc w/ white label"/>
+			<item>
+				<name>MV104</name>
+				<description>for TM tuning, general frequency control and tuning in applications requiring back-to-back diode configurations for minimum signal distortion and detuning</description>
+				<manual>MV104_Tuning_Diode_Motorola.pdf</manual>
+				<quantity>75</quantity>
+			</item>
+			<bag name="PNP (2N) 3906 for 40V DC" style="small ziploc">
+			<item> 
+				<name>2N 3906</name>
+				<description>PNP bipolar junction transistor for general purpose low-power amplifying or switching applications. low current, medium voltage at up to moderately high speeds</description>
+				<manual>2N3906_Transistor.PDF</manual>
+				<quantity>15</quantity>
+			</item>
+			</bag>
+			<item>
+				<name>N514G</name>
+				<description>Mounted in red heat sink. Silicon PNP Power Transistor, 60-80 Voltags 4Amps</description>
+				<manual>N5194_PNP_Power_Transitor.PDF</manual>
+				<quantity>1</quantity>
+			</item>
+		</contents>
+	</bin>
+	<bin id="82" name="SlotDiv2"/>
+	<bin id="48" name="Drawing"/>
+	<bin id="50" name="D Subs"/>
+	<bin id="70" name="Tantulum &amp; Ceramic Capacitors and Crystals"/>
+	<bin id="54" name="Lights"/>
+	<bin id="15" name="Watchman"/>
+	<bin id="76" name="Ethernet"/>
+	<bin id="66" name="Drill Batteries"/>
+	<bin id="72" name="Rope"/>
+	<bin id="74" name="Proto"/>
+	<bin id="73" name="Teensy"/>
+	<bin id="8" name="Ribbon Cable"/>
+	<bin id="86" name="RAM EEPROM ICs"/>
+	<bin id="87" name="Math Mux Timers"/>
+	<bin id="96" name="HDMI Connectors">
+		<contents>
+			<item>
+				<name>HDMI Cable</name>
+				<description>Standard size. male-male ~5' one blue head, one black head</description>
+			</item>
+			<item>
+				<name>HDMI Cable</name>
+				<description>Standard size.gold male-male ~3' stiff wire hose texture jacket</description>
+			</item>
+			<item>
+				<name>HDMI Cable</name>
+				<description>Standard size.gold male-male 12' ferrite at each end</description>
+			</item>
+			<item>
+				<name>HDMI Cable</name>
+				<description>Standard size.male-male ~6' green rings at each end</description>
+				<brand>Amazon basics</brand>
+				<model>HDMI HIGH SPEED with Ethernet</model>
+			</item>
+			<item>
+				<name>HDMI Cable</name>
+				<description>Standard size.male-male 5'</description>
+			</item>
+			<item>
+				<name>HDMI Cable</name>
+				<description>Standard size.male-male 4'</description>
+			</item>
+			<item>
+				<name>HDMI Female</name>
+				<quantity>2</quantity>
+				<description>Standard size to pins</description>
+				<condition>salvaged</condition>
+			</item>
+			<item>
+				<name>4 Port HDMI Switcher</name>
+				<description>Standard size. 1 to 3 with RCA, headphone and Toslink digital audio outi. Needs 5V DC</description>
+				<brand>MONOPRICE</brand>
+				<model>HDMI 4 pORT sWITCHER with Digital Audio Outputs</model>
+			</item>
+			<item>
+				<name>5V DC Power Supply</name>
+				<description>intended for use with MONOPRICE 4 Port HDMI Switcher. 180 mA</description>
+			</item>
+			<bag type="half mylar">
+			<item>
+				<name>HDMI Connectors</name>
+				<quantity>12</quantity>
+				<description>Standard size male to solder breakout</description>
+				<brand>QMseller</brand>
+				<model>X0022K912P</model>
+			</item>
+			</bag>
+			<bag type="half mylar">
+			<item>
+				<name>HDMI Adapter Cable</name>
+				<description>Standard size female to Mini size male. 7.5"</description>
+			</item>
+			</bag>
+		</contents>
+	</bin>
+	<bin id="107" name="Remotes"/>
+	<bin id="103" name="Straps/Line"/>
+	<bin id="18" name="Breadboard"/>
+	<bin id="31" name="Diodes and Rectifiers">
+		<item>
+		<partNumber>1N4002</partNumber>
+		<description>Used diode, 1A, 100V, loose <a href="https://www.vishay.com/docs/88503/1n4001.pdf">Datasheet</a></description>
+		<quantity>3</quantity>
+		</item>
+		<item>
+		<partNumber>V98</partNumber>
+		<description>Used component, additional text: N44002, properties unknown, loose</description>
+		<quantity>2</quantity>
+		</item>
+		<item>
+		<partNumber>4 1 E</partNumber>
+		<description>Used diode, logo resembles a T or hammer, properties unknown, loose</description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>EBI</partNumber>
+		<description>Used diodes with purple caps, properties unknown, loose</description>
+		<quantity>4</quantity>
+		</item>
+		<item>
+		<partNumber>IR-100-0H</partNumber>
+		<description>Used diode, properties unknown, loose</description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>907</partNumber>
+		<description>Used diode, properties unknown, loose</description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>UX-TAC62B</partNumber>
+		<description>Used diode, properties unknown, loose</description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>6NO7G</partNumber>
+		<description>Used diode, properties unknown, loose</description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>935</partNumber>
+		<description>Used diode with gold leads, properties unknown, loose</description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>1N3038B</partNumber>
+		<description>Used silver CAN diode, 1A, 250V, loose <a href="https://www.datasheets360.com/part/detail/1N3038B">Datasheet</a></description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>1M3044</partNumber>
+		<description>Texas Instruments silver CAN diode, additional text: 6717A, properties unknown, loose</description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>1N5407.546</partNumber>
+		<description>Used diode, 3A, 800V, loose <a href="https://www.diodes.com/assets/Datasheets/ds28002.pdf">Datasheet</a></description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>VNA Point</partNumber>
+		<description>Used diode, additional text: IN4002, properties unknown, loose</description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>4735</partNumber>
+		<description>Used diode, properties unknown, loose</description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>LT3346IN5406</partNumber>
+		<description>Used diode, properties unknown, loose</description>
+		<quantity>1</quantity>
+		</item>
+		<item>
+		<partNumber>1N4004</partNumber>
+		<description>Used diode, 1A, 400V, loose <a href="https://www.onsemi.com/pdf/datasheet/1n4001-d.pdf">Datasheet</a></description>
+		<quantity>2</quantity>
+		</item>
+		<item>
+			<name>1N4001</name>
+			<quantity>3x30</quantity>
+			<description>50PRV1AMP Silicon Rectifier DO-TAC41</description>
+			<condition>brand new</condition>
+		</item>
+		<item>
+			<name>1N5240D</name>
+			<quantity>50+</quantity>
+			<description>Zener diode, 10V nominal voltage, max impedance 17 ohms at 20mA, DO-35 package, 500mW power dissipation, Motorola marked with leads, suitable for voltage regulation</description>
+			<condition>new</condition>
+		</item>
+		<item>
+			<name>1N5339B</name>
+			<quantity>20</quantity>
+			<description>5W Zener diode, 5.6V nominal Zener voltage, 5% tolerance, DO-201AE package, suitable for voltage regulation</description>
+			<condition>new, in mylar bag</condition>
+		</item>
+		<bag name="Zener Diodes" style="prescription pill bottle">
+			<item>
+				<name>Small Zener Diodes</name>
+				<quantity>20</quantity>
+				<description>Zener diodes for small-scale voltage regulation</description>
+				<condition>used</condition>
+			</item>
+		</bag>
+		<bag name="Axial Ferrite Beads" style="plastic bag">
+			<item>
+				<name>Axial Ferrite Beads</name>
+				<quantity>6</quantity>
+				<description>Lead-through ferrite beads, approximately 5mm long and 3mm thick, used for high-frequency noise suppression</description>
+			</item>
+		</bag>
+		<item>
+			<name>D20XB60</name>
+			<quantity>1</quantity>
+			<description>Bridge rectifier, model B1968, 20A 600V rating</description>
+			<manual>https://www.alldatasheet.com/view.jsp?Searchword=D20XB60</manual>
+		</item>
+		<item>
+			<name>1N5822</name>
+			<quantity>25</quantity>
+			<description>Schottky diode, 3A, 40V, axial lead</description>
+			<condition>new</condition>
+		</item>
+		<item>
+			<name>BY299</name>
+			<quantity>10</quantity>
+			<description>Fast recovery diode, 2A, 1000V</description>
+			<condition>salvaged</condition>
+		</item>
+		<item>
+			<name>FR107</name>
+			<quantity>50</quantity>
+			<description>Fast recovery rectifier diode, 1A, 1000V</description>
+			<condition>new</condition>
+		</item>
+		<item>
+			<name>1N5404</name>
+			<quantity>20</quantity>
+			<description>General purpose rectifier diode, 3A, 400V</description>
+			<condition>used</condition>
+		</item>
+		<item>
+			<name>UF4007</name>
+			<quantity>15</quantity>
+			<description>Ultra-fast diode, 1A, 1000V</description>
+			<condition>new</condition>
+		</item>
+	</bin>
+	<bin id="92" name="Interfaces LED"/>
+	<bin id="5" name="Proto/light sensors"/>
+	<bin id="2" name="Sensors"/>
+	<bin id="112" name="Hardware Tool Consumables"/>
+	<bin id="102" name="Surf"/>
+	<bin id="110" name="Phone Headsets"/>
+	<bin id="83" name="Knobs Trimpots"/>
+	<bin id="79" name="Resistors"/>
+    	<bin id="88" name="Switches"/>
+	<bin id="27"  name="Wall Anchors"/>
+    	<bin id="55" name="Dead uWave">
+	    <contents>
+			<item>
+			    <description>electronics from microwave ovens</description>
+			</item>
+		</contents>
+	</bin>
+	<bin id="108" name="AC Rheostats"/>
+	<bin id="6" name="A/C Fans"/>
+	<bin id="11" name="ESP32"/>
+	<bin id="99" name="Mixed Media for Trophies"/>
+	<bin id="114" name="Rachet Bungie"/>
+	<bin id="100" name="Acoustic Sensors"/>
+	<bin id="105" name="Power Supplies" style="large">
+		<contents>
+			<item>
+				<quantity>8</quantity>
+				<brand>Adafruit</brand>
+				<PN>Power Boost 1000 Charger</PN>
+				<description>Batter charger from USB circuit, outputs 5 and 3 Volts, small, blue</description>
+				<picture>adafruitPowerBoost1000_5to3VoltChargerConverter.jpg</picture>
+				<picture>AdafruitPowerBoostStockPic.jpg</picture>
+			</item>
+			<item>
+				<quantity>3</quantity>
+				<brand>AliExpress</brand>
+				<PN>LM2596HVS</PN>
+				<description>4.5-60V Buck Converter, small board, mylar bags</description>
+				<picture>LM2596HVS_6to20VbuckConverter.png</picture>
+			</item>
+			<item>
+				<brand>Bauer</brand>
+				<description>183VAC old film photography application, made in Germany</description>
+				<picture>bauerFilmCameraACPowerSupply.jpg</picture>
+			</item>
+			<item>
+				<brand>Bauer</brand>
+				<description>183VAC old film photography application, made in Germany</description>
+				<picture>bauerFilmCameraACPowerSupply.jpg</picture>
+			</item>
+			<item>
+				<brand>Hitachi</brand>
+				<PN>VM0ACE3A</PN>
+				<description>DC 6V, 2A, camera battery charger brick</description>
+				<picture>hitachivm-ace3a6v2AmpCamBattCharger.jpg</picture>
+			</item>
+			<item>
+				<brand>Canon</brand>
+				<PN>CA-600A</PN>
+				<description>DC 7.2V/8.4V, 1.2/1.5A, Dual Battery Charging Brick </description>
+				<picture>Canon600A7ishV1p5AmpDualCharger1.jpg</picture>
+				<picture>Canon600A7ishV1p5AmpDualCharger2.jpg</picture>
+			</item>
+			<item>
+				<brand>Quinn Carver</brand>
+				<description>Step Down DC voltage to 5 and 12 w 78M12 and 78M05 voltage regulators</description>
+				<picture>qc78M12_78M05_DcStepDownTo5n12V.jpg</picture>
+			</item>
+			<item>
+				<description>9.7Volt AC walwart, 6W. Black w/ 2 pin connector set </description>
+			</item>
+			<item>
+				<brand>Delta</brand>
+				<PN>DOPSU-4850</PN>
+				<description>DC 48V, 50W, 1A , white, plugin brick power supply</description>
+				<picture>deltaDOPSU4850_48V1ABrickPowSupp.jpg</picture>
+			</item>
+			<item>
+				<PN>5600601301-11-35-0900</PN>
+				<description>DC 12 Volt maybe Apple computer power supply</description>
+				<picture>5600601301_mbMac_12VDC_powSupp.jpg</picture>
+			</item>
+			<item>
+				<brand>Amseco</brand>
+				<PN>XP-2420</PN>
+				<description>AC 24V, Plug-in Transformer, wall wart</description>
+				<picture>AmsecoXP2420_24VacWallWart.jpg</picture>
+			</item>
+			<item>
+				<PN>No.84 Rev.C</PN>
+				<description>PC Tower Style Computer Power Supply</description>
+				<picture>No84RevCCompPowSupp.jpg</picture>
+			</item>
+			<item>
+				<brand>Basler Electric</brand>
+				<PN>BE116345CAA</PN>
+				<description>AC 15V, 45V</description>
+				<picture>BaslerElectricBE116345HomeSecSys_ACwallwart.jpg</picture>
+			</item>
+			<item>
+				<brand>FP</brand>
+				<PN>SAW06-05</PN>
+				<description>DC, 5 Volt, 1 Amp switching wall wart power supply w 5 mm male and female jack</description>
+				<picture>FP_SAW0605_5V1AmpDCwallwart.jpg</picture>
+			</item>
+			<item>
+				<description>AC, 3.5 Volt, Hand Built Instrumentation Power Supply</description>
+				<picture>instrumentationpowersup3p5VAC.jpg</picture>
+			</item>
+			<item>
+				<description>DC, 12 Volt, Computer (probably Macintosh) power supply</description>
+				<picture>12vpowersupplyproblyMac.jpg</picture>
+			</item>
+			<item>
+				<brand>Telkoor</brand>
+				<PN>LES9907B03</PN>
+				<description>DC, 3.3V, 2 Amp, white wall wart power supply, bare wire no jack</description>
+			</item>
+			<item>
+				<brand>Panasonic</brand>
+				<PN>PQLV219</PN>
+				<description>DC, 6.5 Volt, 500 mA, wall wart power supply, black w/ gray chord, 5mm female jack</description>
+				<picture>PQLV6p5Vwallwart.jpg</picture>
+			</item>
+			<item>
+				<brand>TDK</brand>
+				<PN>614-0003</PN>
+				<description>DC, 5, -5, 12 Volt, 1 Amp, Apple power supply</description>
+				<picture>TDK614900035-5_12V1APowerSupply.jpg</picture>
+			</item>
+			<item>
+				<brand>Yuyang DMU Co Ltd</brand>
+				<PN>LPG32C 10PC, Rev 1.2</PN>
+				<description>DC, 3.3, 12, 24 Volt, 3.5, 3.1, 3.1 Amp, board power supply</description>
+				<picture>yuyang3-12-24vdcpowersupply</picture>
+			</item>
+			<bag name="6V" style="zip lock bag">
+				<contents>
+					<item>
+						<brand>HoMEDiCS</brand>
+						<PN>YJ02-U0600800A PP-ADPEM29</PN>
+						<description>DC, 6 Volt, 800 mA, 6mm female jack</description>
+						<picture>homedics_yju2_6V800mAwallwart.jpg</picture>
+					</item>
+					<item>
+						<PN>S005IU0600040</PN>
+						<description>DC, 6 Volt, 400 mA, 5mm female jack</description>
+						<picture>S005IU0600040_6V400mAWallWart.jpg</picture>
+					</item>
+					<item>
+						<PN>IVP600-0300</PN>
+						<description>DC, 6 Volt, 300 mA, 6mm female jack</description>
+						<picture>IVP600_6Vwallwart.jpg</picture>
+					</item>
+				</contents>
+			</bag>
+			<bag name="Staed 9VAC 300 MA transformers ...all identical" style="zip lock mylar bag">
+				<contents>
+					<item>
+						<quantity>5</quantity>
+						<brand>Standard</brand>
+						<PN>MUA2809300</PN>
+						<description>AC, 9 Volt, 300 mA, some with 6mm female jack</description>
+						<picture>MUA28093009VACwallwart.jpg</picture>
+					</item>
+				</contents>
+			</bag>
+			<bag style="static zip lock bag">
+				<contents>
+					<item>
+						<brand>AcBel POLYTECH Inc/Apple Computer</brand>
+						<PN>614-0378</PN>
+						<description>DC, 12.1 Volt, 15.4 Amp</description>
+						<picture>AppleAcBelPolytech12vPowerSupply614-0378.jpg</picture>
+					</item>
+				</contents>
+			</bag>
+			<bag name="12 Volt" style="mylar bag">
+				<contents>
+					<item>
+						<brand>recoton</brand>
+						<description>DC, 12 volt, 150 mA, mono headphone style jack</description>
+						<picture>recoton12vwalwart.jpg</picture>
+					</item>
+					<item>
+						<brand>Radio Shack</brand>
+						<description>DC, 12 volt, 100 mA, wall wart, bare wire no jack</description>
+						<picture>radioshack12vwalwart0304.jpg</picture>
+					</item>
+					<item>
+						<brand>ktec</brand>
+						<description>DC, 12 volt, 200 mA, wall wart, 6mm female DC jack wall wart</description>
+						<picture>ktec12vwalwart.jpg</picture>
+					</item>
+					<item>
+						<description>DC, 12 volt, 300 mA, wall wart, bare wire no jack</description>
+						<picture>wjy35walwart.jpg</picture>
+			gonzo		</item>
+				</contents>
+			</bag>
+		</contents>
+	</bin>
+	<bin id="3" name="BREAKERS FUZES RELAYS">
+		<contents>
+			<item>
+				<brand>AXICOM</brand>
+				<description>24 VDC powered, double 2-pole throw. White. Salvaged. Tested.</description>
+				<PN>V23105-A5005-A201</PN>
+				<manual>V23105RelayD2n24VDC.pdf</manual>
+			</item>
+		</contents>
+	</bin>
+	<!-- :USB,:EPS32,:AL Scraps,:AU Scraps,:,:Extra Hands,:Locks,:Handles -->
+	<!-- :sockets,headers,:Bright Copper,:The Meters,:Fuses/Relays,:Camera Misc.:Car,:Bandsaw Motor,:Hinges -->
+	<!-- :wirescraps,:Battery,:Electrolytic Capacitors,:Medals,:Shelf Brackets,:RCA Audio Jacks,:Cam,:Fix Me -->
+	<bin id="115" name="CD/DVD ROMs">
+		<contents>
+			<item>
+				<description>HT VHS to DVD 4.0 SE Drivers Minidisc blue and white w/ Panda on it</description>
+				<subcontainer>CD sleeve</subcontainer>
+				<type>
+					<name>CD</name>
+					<subtype_name>mini-disc</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Alani Memoirs</description>
+				<date>
+					<month>7</month>
+					<day>4</day>
+					<year>2011</year>
+				</date>
+				<type>
+					<name>DVD</name>
+					<subtype>DVD-R</subtype>
+					<brand>TDK</brand>
+				</type>
+			</item>
+			<item>
+				<description>Ubuntu 10.10 ISO</description>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>React OS</description>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Debian 8.11 Jessie</description>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Debian 9</description>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>JSAF Exercises</description>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>RTI HLA Programmers Guide</description>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>CloneZilla</description>
+			</item>
+			<item>
+				<description>NGTS v0.3.12 Demo Installation</description>
+				<date>
+					<year>2004</year>
+					<month>10</month>
+					<day>3</day>
+				</date>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>HLA Tools</description>
+				<date>
+					<year>2005</year>
+					<month>6</month>
+					<day>20</day>
+				</date>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>TOMM Deploy Tools 1.0</description>
+				<date>
+					<year>2006</year>
+				</date>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-RW</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Java Dev Tools For TOMM Project</description>
+				<date>
+					<year>2006</year>
+				</date>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-RW</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>JSAF Training Materials</description>
+				<date>
+					<year>2006</year>
+					<month>11</month>
+				</date>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-RW</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Ubuntu 18.0.4</description>
+				<type>
+					<name>DVD</name>
+					<subtype_name>DVD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Centos 7</description>
+				<subcontainer>slim jewel case</subcontainer>
+				<type>
+					<name>DVD</name>
+					<subtype_name>DVD-R</subtype_name>
+					<brand>Verbatim</brand>
+				</type>
+			</item>
+			<item>
+				<description>DELL Drivers and Utilities</description>
+				<subcontainer>slim jewel case</subcontainer>
+				<type>
+					<name>DVD</name>
+					<subtype_name>ROM</subtype_name>
+					<brand>DELL</brand>
+				</type>
+			</item>
+			<item>
+				<description>USB 3.0 to Gigabit Ethernet Adapter Product Driver</description>
+				<type>
+					<name>CD</name>
+					<brand>amazonbasics</brand>
+				</type>
+			</item>
+			<item>
+				<description>React OS</description>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>React OS Live CD</description>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>BenQ CD-R 80</description>
+				<quantity>32</quantity>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Blank DVD</description>
+				<type>
+					<name>DVD</name>
+					<subtype_name>DVD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Best Karaoke The 70's</description>
+				<subcontainer>jewel case</subcontainer>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD+G</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Zipper Black Canvas CD Tote</description>
+				<type>
+					<brand>Case Logic</brand>
+				</type>
+			</item>
+			<item>
+				<description>MyGica USB Video Capture Driver Software User Guide PDF</description>
+				<subcontainer>Zipper Black Canvas CD Tote</subcontainer>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-ROM</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>gparted-live-0.7.0-2</description>
+				<subcontainer>Zipper Black Canvas CD Tote</subcontainer>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Cerrano 12-15-14</description>
+				<subcontainer>Zipper Black Canvas CD Tote</subcontainer>
+				<date>
+					<year>2014</year>
+					<month>12</month>
+					<day>15</day>
+				</date>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>Cerrano 5.15.14 (a vm)</description>
+				<subcontainer>Zipper Black Canvas CD Tote</subcontainer>
+				<date>
+					<year>5</year>
+					<month>5</month>
+					<day>14</day>
+				</date>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+				</type>
+			</item>
+			<item>
+				<description>RTIs-Overlays to untar in directory</description>
+				<subcontainer>Zipper Black Canvas CD Tote</subcontainer>
+				<date>
+					<year>6</year>
+					<month>3</month>
+					<day>11</day>
+				</date>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+					<brand>Staples</brand>
+				</type>
+			</item>
+			<item>
+				<description>JSAF from Metal 3</description>
+				<subcontainer>Zipper Black Canvas CD Tote</subcontainer>
+				<date>
+					<year>6</year>
+					<month>3</month>
+					<day>11</day>
+				</date>
+				<type>
+					<name>CD</name>
+					<subtype_name>CD-R</subtype_name>
+					<brand>Staples</brand>
+				</type>
+			</item>
+			<item>
+				<description>Alion Science and Technology JSAF Training Materials</description>
+				<subcontainer>Zipper Black Canvas CD Tote</subcontainer>
+				<date>
+					<year>2006</year>
+					<month>2</month>
+				</date>
+				<type>
+					<name>CD</name>
+				</type>
+			</item>
+			<item>
+				<description>REALWORLD RWB &amp; Asset Library Version 0.5.1</description>
+				<subcontainer>Zipper Black Canvas CD Tote</subcontainer>
+				<date>
+					<year>2008</year>
+				</date>
+				<type>
+					<name>CD</name>
+				</type>
+			</item>
+			<item>
+				<description>Mini Me Memoirs</description>
+				<subcontainer>Zipper Black Canvas CD Tote</subcontainer>
+				<date>
+					<year>2010</year>
+					<month>10</month>
+					<day>1</day>
+				</date>
+				<type>
+					<name>CD</name>
+				</type>
+			</item>
+			<item>
+				<description>Mini Me Memoirs Quinn Carver</description>
+				<subcontainer>Zipper Black Canvas CD Tote</subcontainer>
+				<date>
+					<year>2010</year>
+				</date>
+				<type>
+					<name>CD</name>
+				</type>
+			</item>
+		</contents>
+	</bin>
+	<!-- ??:SIGN,??:Bike,??:Wirehose,??:Mesh/Screen,??:Round Sliders,??:Sort Me,??:Corks,??:Crepe Paper -->
+	<!-- 35:8" pop rack,14:RS-232 Drivers/Recievers \n UART IC,25: Peripherals,23: Anti static,26: , 33: Wood Crafts,22: Sculpt -->
 </inventory>
