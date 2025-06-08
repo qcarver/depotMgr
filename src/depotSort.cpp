@@ -46,7 +46,6 @@ MarkerDetector MDetector;
 VideoCapture vreader;
 ArgcArgvInput args;  
 
-
 //params for how long to wait for cv image window to open
 struct wait_for_image {
     int timeout_ms = 1500;
@@ -66,10 +65,16 @@ cv::Mat __resize(const cv::Mat& in, int width)
     return im2;
 }
 
-bool findBin(vector<Marker> Markers, int bin_id)
+bool findBin()
 {
     Rack rack(Markers);
-    return rack.findBinRow(bin_id) && rack.findBinColumn(bin_id);
+    int row = rack.findBinRow(args.bin_id);
+    int column = rack.findBinColumn(args.bin_id);
+
+    cout << "Bin ID: " << args.bin_id << " is in Row: " << row << ", Column: " << column << endl;
+
+    // return true if both row and column are found 
+    return row && column; 
 }
 
 
@@ -143,29 +148,46 @@ int main(int argc, char** argv)
         cerr << "Marker detection failed." << endl;
         return -1; 
     }
-
-    // for each marker, draw info and its boundaries in the image
-    for (unsigned int i = 0; i < Markers.size(); i++)
-    {
-        if (Markers[i].id == args.bin_id)
-        {
+    
+    for (unsigned int i = 0; i < Markers.size(); i++) {
+        if (Markers[i].id == args.bin_id) {
+            if (args.verbose) {
+                cout << "Found marker with ID: " << Markers[i].id << endl;
+                cout << "Marker corners: " << Markers[i] << endl;
+            }
             cout << Markers[i] << endl;
-            // show input with augmented information
-            cv::namedWindow(window_name, 1); 
-            Markers[i].draw(InImage, Scalar(127,127, 0), 5, true);
-            cv::imshow(window_name, __resize(InImage,1280));
+
+            if (!InImage.empty()) {
+                Markers[i].draw(InImage, Scalar(127, 127, 0), 5, true);
+            }
             break;
-        } 
-        //if the bin_id is not found or user didn't care, mark bin_id as false
-        else if (i == Markers.size()-1) args.bin_id = 0;
+        } else if (i == Markers.size() - 1) {
+            args.bin_id = 0;
+        }
     }
 
     cout << "Num markers detected: " << Markers.size() << endl;
 
-    if (args.bin_id) findBin(Markers,args.bin_id);
-
-    //wait for the window to close then.. continue
-    while (cv::getWindowProperty(window_name, 1) >= 0) cv::waitKey(50);
+    if (args.bin_id) {
+        findBin();
+        if (args.verbose) {
+            cout << "The image window was shown. You can close it when you're done." << endl;
+        }
+        // Known limitation of OpenCV w/ QT/GTK): must run in the main thread. So we do it last.
+        if (!InImage.empty()) {
+            cv::namedWindow(window_name, cv::WINDOW_AUTOSIZE);
+            cv::imshow(window_name, InImage);
+            while (cv::getWindowProperty(window_name, cv::WND_PROP_VISIBLE) >= 1) {
+                if (cv::waitKey(50) >= 0) break; // Exit on any key press
+            }
+            cv::destroyWindow(window_name);
+        }
+    } else {
+        if (args.verbose) {
+            // FAIL with style.
+            cout << "Sorry, couldn't find bin " << args.bin_id << endl;
+        }
+    }
 }
 
     

@@ -7,8 +7,8 @@ set(CMAKE_CXX_STANDARD 17)
 # Eg building with gdb:
 # cmake -DCMAKE_BUILD_TYPE=Debug ..
 # Eg cmds:
-# gdb ./depotMgr
-# break depotSort.cpp:135
+# gdb ./depotMgr            # info threads
+# break depotSort.cpp:135   # Thread <thread number> 
 # run -b 28 ../capture.jpg
 # print args.bin
 # info breakpoints
