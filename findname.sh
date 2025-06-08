@@ -1,15 +1,15 @@
 #!/bin/bash
 IFS=$'\n'
 
-# ─────────────────────────────────────────────────────────────────────
+# 
 # HELP: Print usage and exit
-# ─────────────────────────────────────────────────────────────────────
+# 
 if [[ "$1" == "-h" || "$1" == "--help" || -z "$1" ]]; then
     echo ""
     echo "Usage: $(basename "$0") <search_term>"
     echo ""
     echo "Example: ./findname.sh relay"
-    echo "  → Scans inventory.xml for bins with name or item tags containing 'relay'"
+    echo "   Scans inventory.xml for bins with name or item tags containing 'relay'"
     echo "    Case-insensitive partial matches are accepted."
     echo ""
     echo "Expected layout:"
@@ -42,7 +42,7 @@ else
     exit 1
 fi
 
-# Get XML field name from script filename (e.g. findname.sh → name)
+# Get XML field name from script filename (e.g. findname.sh  name)
 script_name=$(basename "$0")
 target_field=$(echo "$script_name" | sed -E 's/^find([a-zA-Z]+)\.sh$/\1/' | tr '[:upper:]' '[:lower:]')
 
@@ -68,8 +68,10 @@ result=$(xmllint --xpath "$bins_xpath | $items_xpath" inventory.xml 2>/dev/null)
 
 if [ $? -eq 0 ]; then
     echo "$result"
-    bin_id=$(echo "$result" | sed -n 's/.*id="\([0-9]*\)".*/\1/p')
-    echo "id is $bin_id"
+    #bin_id=$(echo "$result" | sed -n 's/.*id="\([0-9]*\)".*/\1/p')
+    bin_id=$(echo "$result" | sed -n 's/.*[[:space:]]*id="\([0-9]*\)".*/\1/p')
+    #bin_id=$(echo "$result" | awk -F'"' '{print $2}')
+    echo "id is ${bin_id}"
 else
     echo "No bin found for $target_field containing \"$search_term\" (case-insensitive)"
     exit 1
