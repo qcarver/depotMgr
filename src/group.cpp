@@ -8,27 +8,33 @@ size_t Group::count = 0;
 
 float Group::getAvg() const
 {
-    return (binMarkers.size())?sum/binMarkers.size():0;
+    return avg; 
 }
 
 float Group::getRangeMin() const
 {
-    return getAvg()*(1-wiggle);
+    return avg*(1-wiggle);
 }
 
 float Group::getRangeMax() const
 {
-    return getAvg()*(1+wiggle);
+    return avg*(1+wiggle);
 }
 
-bool Group::addBin(const aruco::Marker & binMarker)
+bool Group::addBin(const aruco::Marker & binMarker, uint position )
 {
     binMarkers.push_back(binMarker.id);
-    //cout << "num binMarkers in column is now " << binMarkers.size() << std::endl;
-    //sum helps keep an average of the horiz or vert position of the row or column
-    sum += get_position(binMarker.id);
+    std::cout << "num binMarkers in group is now " << binMarkers.size() << std::endl;
+
+    // Update running average location of axis position for the group
+    if (binMarkers.size() == 1) {
+        avg = position; 
+    } else {
+        avg = (avg * (binMarkers.size() - 1) + position) / binMarkers.size();
+    }
     return true;
 }
+
 
 bool Group::containsBin(int id) const
 {
@@ -50,9 +56,17 @@ uint Column::get_position(const aruco::Marker & binMarker) const
     return binMarker.getCenter().x;
 }
 
+bool Column::addBin(const aruco::Marker & binMarker)
+{
+    return Group::addBin(binMarker, get_position(binMarker));
+}
+
 uint Row::get_position(const aruco::Marker & binMarker) const
 {
     return binMarker.getCenter().y;
 }
 
-
+bool Row::addBin(const aruco::Marker & binMarker)
+{
+    return Group::addBin(binMarker, get_position(binMarker));
+}

@@ -177,8 +177,9 @@ int main(int argc, char** argv)
         if (!InImage.empty()) {
             cv::namedWindow(window_name, cv::WINDOW_AUTOSIZE);
             cv::imshow(window_name, InImage);
+            // Program flow proceeds once either the window is closed or a key is pressed.
             while (cv::getWindowProperty(window_name, cv::WND_PROP_VISIBLE) >= 1) {
-                if (cv::waitKey(50) >= 0) break; // Exit on any key press
+                if (cv::waitKey(50) >= 0) break; 
             }
             cv::destroyWindow(window_name);
         }

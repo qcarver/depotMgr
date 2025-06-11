@@ -13,17 +13,16 @@
 class Group{
     private:
         Group():wiggle(0.0f){}
-        Group(const aruco::Marker & binMarker):wiggle(0.0f){}
     public:
     static size_t count;
     virtual uint get_position(const aruco::Marker & binMarker) const = 0;
 
     protected:
     std::vector<int> binMarkers;
-    uint sum = 0;
+    uint avg = 0;
     const float wiggle;// = 0.12f;
-
-    Group(const float _wiggle) : wiggle(_wiggle){};
+    Group(const float _wiggle):wiggle(_wiggle){}
+    Group(const aruco::Marker & binMarker, uint position, const float _wiggle):wiggle(_wiggle){addBin(binMarker, position);}
 
     public: 
     float getAvg() const;
@@ -32,7 +31,7 @@ class Group{
 
     float getRangeMax() const;
 
-    bool addBin(const aruco::Marker & binMarker);
+    bool addBin(const aruco::Marker & binMarker, uint position);
 
     bool containsBin(int id) const;
 
@@ -47,8 +46,9 @@ class Column:public Group
     Column() : Group(COLUMN_WIGGLE){};
 
     public:
-    Column(aruco::Marker & binMarker):Group(COLUMN_WIGGLE){};
+    Column(aruco::Marker & binMarker):Group(binMarker, binMarker.getCenter().x, COLUMN_WIGGLE){};
     uint get_position(const aruco::Marker & binMarker) const override;
+    bool addBin(const aruco::Marker & binMarker);
 };
 
 class Row:public Group
@@ -58,9 +58,9 @@ class Row:public Group
 
     public:
     //Rows get a little more wiggle b/c there are fewer of them
-    Row(aruco::Marker & binMarker) : Group(ROW_WIGGLE){};
-
+    Row(aruco::Marker & binMarker):Group(binMarker, binMarker.getCenter().y, ROW_WIGGLE){};
     virtual uint get_position(const aruco::Marker & binMarker) const override;
+    bool addBin(const aruco::Marker & binMarker);
 };
 
 

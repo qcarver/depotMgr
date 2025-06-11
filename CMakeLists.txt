@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD 17)
 # info breakpoints
 # delete <breakpoint number>
 # next # Step Over
-# next # Step Into
+# step # Step Into
 # continue
 set(CMAKE_BUILD_TYPE Debug)
 

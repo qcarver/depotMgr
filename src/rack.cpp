@@ -12,12 +12,15 @@ Rack::Rack(const std::vector<aruco::Marker> & Markers)
     for (aruco::Marker binMarker : Markers)
     {
         bool added_to_existing = false;
+
+        std::cout << "looking binMarker column with X coord " << binMarker.getCenter().x << std::endl;
         
         for (Column column : columns)
         {
             if (binMarker < column)  continue;
 
             else if (binMarker == column){
+                std::cout << "adding bin to existing column spanning " << column.getRangeMin() << "<-- " << binMarker.getCenter().x << " -->" << column.getRangeMax() << std::endl;
                 added_to_existing = column.addBin(binMarker);
                 break;
             }
@@ -26,11 +29,14 @@ Rack::Rack(const std::vector<aruco::Marker> & Markers)
 
         added_to_existing = false;
 
+        std::cout << "looking binMarker row with Y coord " << binMarker.getCenter().y << std::endl;
+
         for (Row row : rows)
         {
             if (binMarker < row)  continue;
 
             else if (binMarker == row){
+                std::cout << "adding bin to row " << row.getRangeMin() << "<-- " << binMarker.getCenter().y << " -->" << row.getRangeMax() << std::endl;
                 added_to_existing = row.addBin(binMarker);
                 break;
             }
@@ -111,8 +117,8 @@ bool operator< (const aruco::Marker & binMarker, const Group & group)
     float group_low_range = group.getRangeMin();
     uint bin_position = group.get_position(binMarker);
 
-    //cout    << "binMarker's position of " << bin_position <<  ( bin_position < bin_position ? " < ":" ≮ ")
-    //        << " column's low range " << group_low_range << std::endl;
+    //std::cout    << "binMarker's position of " << bin_position <<  ( bin_position < bin_position ? " < ":" ≮ ")
+      //      << " column's low range " << group_low_range << std::endl;
 
     return  bin_position < group_low_range ;
 }
@@ -122,8 +128,8 @@ bool operator> (const aruco::Marker & binMarker, const Group & group)
     float group_hi_range = group.getRangeMax();
     uint bin_position = group.get_position(binMarker);
 
-    //cout    << "binMarker's value " << bin_position <<  (bin_position > group_hi_range ? " > ":"≯ ")
-    //        << " column's high range" << group_hi_range << std::endl;
+    //std::cout    << "binMarker's value " << bin_position <<  (bin_position > group_hi_range ? " > ":"≯ ")
+       //      << " column's high range" << group_hi_range << std::endl;
 
     return  bin_position > group_hi_range ;
 }
