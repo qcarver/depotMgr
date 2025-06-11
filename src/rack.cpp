@@ -15,7 +15,7 @@ Rack::Rack(const std::vector<aruco::Marker> & Markers)
 
         std::cout << "looking binMarker column with X coord " << binMarker.getCenter().x << std::endl;
         
-        for (Column column : columns)
+        for (Column& column : columns)
         {
             if (binMarker < column)  continue;
 
@@ -31,7 +31,7 @@ Rack::Rack(const std::vector<aruco::Marker> & Markers)
 
         std::cout << "looking binMarker row with Y coord " << binMarker.getCenter().y << std::endl;
 
-        for (Row row : rows)
+        for (Row& row : rows)
         {
             if (binMarker < row)  continue;
 
@@ -94,7 +94,6 @@ Rack::~Rack()
 
     //std::cout << "num columns before exit: " << Group::count << ", num bins before exit: " << Bin::count << std::endl;
     //std::cout << "num row before exit: " << Group::count << ", num bins before exit: " << Bin::count << std::endl;
-
 }
 
 std::ostream& operator<<(std::ostream& str, const Group& group)

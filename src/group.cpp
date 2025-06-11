@@ -24,7 +24,7 @@ float Group::getRangeMax() const
 bool Group::addBin(const aruco::Marker & binMarker, uint position )
 {
     binMarkers.push_back(binMarker.id);
-    std::cout << "num binMarkers in group is now " << binMarkers.size() << std::endl;
+    std::cout << "num binMarkers in group " << (void *)this << " is now " << binMarkers.size() << std::endl;
 
     // Update running average location of axis position for the group
     if (binMarkers.size() == 1) {
