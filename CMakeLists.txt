@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(depotMgr)
 
-set(CMAKE_CXX_STANDARD 17)
+# needed for `concept` support. Else? just rewrite to use common base class
+set(CMAKE_CXX_STANDARD 20)
 
 # comment out for debugging, 
 # Eg building with gdb:

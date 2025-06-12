@@ -8,43 +8,34 @@ using namespace aruco;
 
 Rack::Rack(const std::vector<aruco::Marker> & Markers)
 {
-//  Place the id of each binMarker in a column and a row
-    for (aruco::Marker binMarker : Markers)
-    {
-        bool added_to_existing = false;
-
+    for (const aruco::Marker& binMarker : Markers) {
         std::cout << "looking binMarker column with X coord " << binMarker.getCenter().x << std::endl;
-        
-        for (Column& column : columns)
-        {
-            if (binMarker < column)  continue;
-
-            else if (binMarker == column){
-                std::cout << "adding bin to existing column spanning " << column.getRangeMin() << "<-- " << binMarker.getCenter().x << " -->" << column.getRangeMax() << std::endl;
-                added_to_existing = column.addBin(binMarker);
-                break;
-            }
-        }
-        if (!added_to_existing) columns.push_back(Column(binMarker));
-
-        added_to_existing = false;
+        addMarkerToGroups<Column>(binMarker, columns);
 
         std::cout << "looking binMarker row with Y coord " << binMarker.getCenter().y << std::endl;
-
-        for (Row& row : rows)
-        {
-            if (binMarker < row)  continue;
-
-            else if (binMarker == row){
-                std::cout << "adding bin to row " << row.getRangeMin() << "<-- " << binMarker.getCenter().y << " -->" << row.getRangeMax() << std::endl;
-                added_to_existing = row.addBin(binMarker);
-                break;
-            }
-        }
-        if (!added_to_existing) rows.push_back(Row(binMarker));
-
+        addMarkerToGroups<Row>(binMarker, rows);
     }
 }
+
+
+template <RowOrColumn GroupType>
+void Rack::addMarkerToGroups(const aruco::Marker& binMarker, std::vector<GroupType>& groups) {
+    bool added_to_existing = false;
+
+    for (auto& group : groups) {
+        if (binMarker < group) continue;
+        else if (binMarker == group) {
+            std::cout << "adding bin to existing " << groupTypeName<GroupType>()
+                      << " spanning " << group.getRangeMin() << "<-- "
+                      << group.get_position(binMarker)
+                      << " -->" << group.getRangeMax() << std::endl;
+            added_to_existing = group.addBin(binMarker);
+            break;
+        }
+    }
+    if (!added_to_existing) groups.push_back(GroupType(binMarker));
+}
+
 
 int Rack::findBinRow(int id) const
 {

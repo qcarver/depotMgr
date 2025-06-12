@@ -24,9 +24,7 @@ float Group::getRangeMax() const
 bool Group::addBin(const aruco::Marker & binMarker, uint position )
 {
     binMarkers.push_back(binMarker.id);
-    std::cout << "num binMarkers in group " << (void *)this << " is now " << binMarkers.size() << std::endl;
 
-    // Update running average location of axis position for the group
     if (binMarkers.size() == 1) {
         avg = position; 
     } else {
@@ -34,7 +32,6 @@ bool Group::addBin(const aruco::Marker & binMarker, uint position )
     }
     return true;
 }
-
 
 bool Group::containsBin(int id) const
 {
@@ -51,6 +48,9 @@ bool Group::isEmpty() const
     return binMarkers.size();
 }
 
+template<>
+const char* groupTypeName<Column>() { return "Column"; }
+
 uint Column::get_position(const aruco::Marker & binMarker) const
 {
     return binMarker.getCenter().x;
@@ -60,6 +60,9 @@ bool Column::addBin(const aruco::Marker & binMarker)
 {
     return Group::addBin(binMarker, get_position(binMarker));
 }
+
+template<>
+const char* groupTypeName<Row>() { return "Row"; }
 
 uint Row::get_position(const aruco::Marker & binMarker) const
 {

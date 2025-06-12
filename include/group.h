@@ -46,7 +46,7 @@ class Column:public Group
     Column() : Group(COLUMN_WIGGLE){};
 
     public:
-    Column(aruco::Marker & binMarker):Group(binMarker, binMarker.getCenter().x, COLUMN_WIGGLE){};
+    Column(const aruco::Marker & binMarker):Group(binMarker, binMarker.getCenter().x, COLUMN_WIGGLE){};
     uint get_position(const aruco::Marker & binMarker) const override;
     bool addBin(const aruco::Marker & binMarker);
 };
@@ -58,10 +58,13 @@ class Row:public Group
 
     public:
     //Rows get a little more wiggle b/c there are fewer of them
-    Row(aruco::Marker & binMarker):Group(binMarker, binMarker.getCenter().y, ROW_WIGGLE){};
+    Row(const aruco::Marker & binMarker):Group(binMarker, binMarker.getCenter().y, ROW_WIGGLE){};
     virtual uint get_position(const aruco::Marker & binMarker) const override;
     bool addBin(const aruco::Marker & binMarker);
 };
+
+template<typename T>
+const char* groupTypeName();
 
 
 
