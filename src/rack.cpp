@@ -2,24 +2,56 @@
 
 #include "rack.h"
 #include <iostream>
+#include <ranges>
 #include "group.h"
 
 using namespace aruco;
 
-Rack::Rack(const std::vector<aruco::Marker> & Markers)
+template <std::ranges::input_range Range>
+requires std::convertible_to<std::ranges::range_value_t<Range>, Slot>
+Rack::Rack(Range&& r)
+    : slots(std::forward<Range>(r).begin(), std::forward<Range>(r).end()) {
+    std::cout << "Rack constructed from Slot range\n";
+
+        float avg_width = 0.0f, avg_height = 0.0f;
+        size_t marker_count = 0;
+
+        for (const auto& slot : slots) {
+            for (const auto& bin : slot.bins) {
+            for (const auto& marker : bin.markers) {
+                ++marker_count;
+                avg_width += (marker.getWidth() - avg_width) / marker_count;
+                avg_height += (marker.getHeight() - avg_height) / marker_count;
+            }
+            }
+        }
+
+        if (marker_count > 0) {
+            std::cout << "Average marker width: " << avg_width << ", height: " << avg_height << std::endl;
+        } else {
+            std::cout << "No markers found to calculate average size.\n";
+        }
+}
+
+/*Rack::Rack(const std::vector<aruco::Marker> & Markers)
 {
     for (const aruco::Marker& binMarker : Markers) {
         std::cout << "looking binMarker column with X coord " << binMarker.getCenter().x << std::endl;
-        addMarkerToGroups<Column>(binMarker, columns);
+        addBinToGroups<Column>(Bin(binMarker), columns);
 
         std::cout << "looking binMarker row with Y coord " << binMarker.getCenter().y << std::endl;
-        addMarkerToGroups<Row>(binMarker, rows);
+        addBinToGroups<Row>(Bin(binMarker), rows);
     }
+}*/
+
+// Constructor that accepts a range of Bins
+template <std::ranges::input_range Range>
+    Rack(Range&& r) : bins(std::forward<Range>(r).begin(), std::forward<Range>(r).end()) {
+        std::cout << "Rack constructed from Bin range\n";
 }
 
-
 template <RowOrColumn GroupType>
-void Rack::addMarkerToGroups(const aruco::Marker& binMarker, std::vector<GroupType>& groups) {
+void Rack::addBinToGroups(const Bin bin, std::vector<GroupType>& groups) {
     bool added_to_existing = false;
 
     for (auto& group : groups) {
@@ -33,8 +65,24 @@ void Rack::addMarkerToGroups(const aruco::Marker& binMarker, std::vector<GroupTy
             break;
         }
     }
-    if (!added_to_existing) groups.push_back(GroupType(binMarker));
+    if (!added_to_existing) {
+        auto it = groups.begin();
+        for (; it != groups.end(); ++it) {
+            if constexpr (std::is_same<GroupType, Column>::value) {
+                if (binMarker.getCenter().x < it->getAvg()) {
+                    break;
+                }
+            } else if constexpr (std::is_same<GroupType, Row>::value) {
+                if (binMarker.getCenter().y < it->getAvg()) {
+                    break;
+                }
+            }
+        }
+        groups.insert(it, GroupType(binMarker));
+    }
 }
+
+
 
 
 int Rack::findBinRow(int id) const

@@ -19,9 +19,8 @@ set(CMAKE_CXX_STANDARD 20)
 # continue
 set(CMAKE_BUILD_TYPE Debug)
 
-# This is where our own include files are located
-include_directories(${CMAKE_SOURCE_DIR}/include)
 
+#<packages>
 # With OpenCV and Aruco 'find_package' assUmes they are installed on the local system. 
 # If you built them from source, be sure to run 'cmake install' in their build directories.
 
@@ -32,6 +31,24 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 # Locate Aruco 
 find_package(aruco REQUIRED)
 include_directories(${aruco_INCLUDE_DIRS})
+
+# Now for something different fetching pugixml
+# PROs: don't have to install it first (eg /usr/local/cmake/pugixml)
+# CONs: you have a copy of the lib in every project that uses it
+# TODO: move OpenCV and Aruco to this style -- to or consider using CPM
+include(FetchContent)
+
+FetchContent_Declare(
+    pugixml
+    GIT_REPOSITORY https://github.com/zeux/pugixml.git
+    GIT_TAG        v1.14  # or latest release tag
+)
+
+FetchContent_MakeAvailable(pugixml)
+# </packages>
+
+# This is where our own include files are located
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Add this project's header files 
 link_directories(${CMAKE_SOURCE_DIR}/include)
@@ -47,8 +64,9 @@ add_executable(depotMgr
 
 # Link against Aruco and OpenCV
 target_link_libraries(depotMgr
-    aruco
-    ${OpenCV_LIBS}
+    PRIVATE aruco
+    PRIVATE ${OpenCV_LIBS}
+    PRIVATE pugixml
 )
 
 # I always forget this, and I'm like: "Where's my executable?"

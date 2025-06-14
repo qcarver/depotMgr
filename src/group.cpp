@@ -21,14 +21,14 @@ float Group::getRangeMax() const
     return avg*(1+wiggle);
 }
 
-bool Group::addBin(const aruco::Marker & binMarker, uint position )
+bool Group::addBin(const Bin& bin, uint position )
 {
-    binMarkers.push_back(binMarker.id);
+    bins.push_back(bin.marker.id);
 
-    if (binMarkers.size() == 1) {
+    if (bins.size() == 1) {
         avg = position; 
     } else {
-        avg = (avg * (binMarkers.size() - 1) + position) / binMarkers.size();
+        avg = (avg * (bins.size() - 1) + position) / bins.size();
     }
     return true;
 }
@@ -36,40 +36,40 @@ bool Group::addBin(const aruco::Marker & binMarker, uint position )
 bool Group::containsBin(int id) const
 {
     bool found = false;
-    for (int binMarker : binMarkers)
+    for (int bin : bins)
     {
-        found |= binMarker == id;
+        found |= bin == id;
     }
     return found;
 }
 
 bool Group::isEmpty() const
 {
-    return binMarkers.size();
+    return bins.size();
 }
 
 template<>
 const char* groupTypeName<Column>() { return "Column"; }
 
-uint Column::get_position(const aruco::Marker & binMarker) const
+uint Column::get_position(const Bin& bin) const
 {
-    return binMarker.getCenter().x;
+    return bin.marker.getCenter().x;
 }
 
-bool Column::addBin(const aruco::Marker & binMarker)
+bool Column::addBin(const Bin& bin)
 {
-    return Group::addBin(binMarker, get_position(binMarker));
+    return Group::addBin(bin, get_position(bin));
 }
 
 template<>
 const char* groupTypeName<Row>() { return "Row"; }
 
-uint Row::get_position(const aruco::Marker & binMarker) const
+uint Row::get_position(const Bin& bin) const
 {
-    return binMarker.getCenter().y;
+    return bin.marker.getCenter().y;
 }
 
-bool Row::addBin(const aruco::Marker & binMarker)
+bool Row::addBin(const Bin& bin)
 {
-    return Group::addBin(binMarker, get_position(binMarker));
+    return Group::addBin(bin, get_position(bin));
 }

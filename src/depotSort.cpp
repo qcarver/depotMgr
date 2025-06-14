@@ -32,14 +32,18 @@ or implied, of Rafael Muñoz Salinas.
 #include <opencv2/imgproc/imgproc.hpp>
 #include <string>
 #include <stdexcept>
-#include "rack.h"
+#include <vector>
+#include <ranges>
+
 #include "argc_argv.hpp"
+#include "rack.h"
+#include "bin.h"
 
 using namespace cv;
 using namespace std;
 using namespace aruco;
 
-vector<Marker> Markers;
+vector<Marker> markers;
 cv::Mat InImage;
 aruco::CameraParameters CamParam; //-c
 MarkerDetector MDetector;
@@ -63,11 +67,15 @@ cv::Mat __resize(const cv::Mat& in, int width)
     cv::Mat im2;
     cv::resize(in, im2, cv::Size(width, static_cast<int>(in.size().height * yf)));
     return im2;
-}
+} 
 
 bool findBin()
 {
-    Rack rack(Markers);
+    // Use C++'20 views to (bash-like) pipe Markers into Bins, housed in Slots
+    Rack rack = markers
+    | std::views::transform([](const aruco::Marker& m) { return Bin(m); })
+    | std::views::transform([](const Bin& b) { return Slot(b); });
+
     int row = rack.findBinRow(args.bin_id);
     int column = rack.findBinColumn(args.bin_id);
 
@@ -113,11 +121,10 @@ bool openInputImage() //uses image_filename
     return success;
 }
 
-
 bool detect(){
     try
     {
-        Markers = MDetector.detect(InImage, CamParam, args.marker_size);
+        markers = MDetector.detect(InImage, CamParam, args.marker_size);
     }
     catch (const std::exception& e)
     {
@@ -149,24 +156,24 @@ int main(int argc, char** argv)
         return -1; 
     }
     
-    for (unsigned int i = 0; i < Markers.size(); i++) {
-        if (Markers[i].id == args.bin_id) {
+    for (unsigned int i = 0; i < markers.size(); i++) {
+        if (markers[i].id == args.bin_id) {
             if (args.verbose) {
-                cout << "Found marker with ID: " << Markers[i].id << endl;
-                cout << "Marker corners: " << Markers[i] << endl;
+                cout << "Found marker with ID: " << markers[i].id << endl;
+                cout << "Marker corners: " << markers[i] << endl;
             }
-            cout << Markers[i] << endl;
+            cout << markers[i] << endl;
 
             if (!InImage.empty()) {
-                Markers[i].draw(InImage, Scalar(127, 127, 0), 5, true);
+                markers[i].draw(InImage, Scalar(127, 127, 0), 5, true);
             }
             break;
-        } else if (i == Markers.size() - 1) {
+        } else if (i == markers.size() - 1) {
             args.bin_id = 0;
         }
     }
 
-    cout << "Num markers detected: " << Markers.size() << endl;
+    cout << "Num markers detected: " << markers.size() << endl;
 
     if (args.bin_id) {
         findBin();

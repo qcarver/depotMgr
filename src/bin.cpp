@@ -1,7 +1,19 @@
 //2023 qcarver@gmail.com MIT license 
 
 #include "bin.h"
+Bin::Bin(Bin&& other) noexcept
+    : marker(std::move(other.marker))
+{
+    // Adding other members?
+}
 
-Bin::Bin(aruco::Marker & _marker) : marker(_marker){}
 
-Bin::Bin(const Bin & bin) : marker(bin.marker){}
+//Slot
+void Slot::slideOut() {
+    bin.reset();
+}
+
+Bin& Slot::slideIn(Bin& _bin) {
+    bin = _bin;
+    return *bin;
+}
