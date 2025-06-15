@@ -13,24 +13,10 @@ Rack::Rack(Range&& r)
     : slots(std::forward<Range>(r).begin(), std::forward<Range>(r).end()) {
     std::cout << "Rack constructed from Slot range\n";
 
-        float avg_width = 0.0f, avg_height = 0.0f;
-        size_t marker_count = 0;
-
-        for (const auto& slot : slots) {
-            for (const auto& bin : slot.bins) {
-            for (const auto& marker : bin.markers) {
-                ++marker_count;
-                avg_width += (marker.getWidth() - avg_width) / marker_count;
-                avg_height += (marker.getHeight() - avg_height) / marker_count;
-            }
-            }
-        }
-
-        if (marker_count > 0) {
-            std::cout << "Average marker width: " << avg_width << ", height: " << avg_height << std::endl;
-        } else {
-            std::cout << "No markers found to calculate average size.\n";
-        }
+    // Calculate stats from the slots
+    stats(slots); 
+    // verbose output of stats
+    std::cout << stats << std::endl;
 }
 
 /*Rack::Rack(const std::vector<aruco::Marker> & Markers)

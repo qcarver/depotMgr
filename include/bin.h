@@ -10,8 +10,15 @@ class Bin{
     public:
     Bin(const aruco::Marker _marker):marker(_marker) {}; 
     Bin(const Bin& bin) : marker(bin.marker) {} // Copy constructor
-    Bin(Bin&& other); // Move constructor declaration
-    Bin& operator=(const Bin& other);
+    Bin(Bin&& other) noexcept; // Move constructor declaration
+    uint16_t height() const; // Height in pixels
+    uint16_t width() const;  // Width in pixels
+
+    struct Center {  // sadface, can't just return anon {uint16_t x,y}
+        uint16_t x;  //     meh... I made this instead. 
+        uint16_t y;  //     I kinda miss Python right now.
+    };
+    Center center() const; // Center in pixels, returns anon {x, y} struct
 
     //Add more fields?, Then update '=' copy/move constructors
     const aruco::Marker marker;

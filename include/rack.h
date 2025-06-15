@@ -24,7 +24,50 @@ class Rack{
    // vector of slots where bins can go
    std::vector<Slot> slots;
 
-   
+   struct Stats {
+      uint16_t avgBinHeight = 0.0;
+      uint16_t avgBinWidth = 0.0;
+      const Bin* highestBin = nullptr;   // lowest center().y
+      const Bin* lowestBin = nullptr;    // highest center().y
+      const Bin* leftmostBin = nullptr;  // lowest center().x
+      const Bin* rightmostBin = nullptr; // highest center().x
+
+      template <typename Range>
+      auto operator()(const Range& r) {
+         size_t count = 0;
+
+         for (const Slot& slot : r) {
+            if (!slot.isFilled()) continue;
+            ++count;
+            const Bin& bin = slot.bin.value();
+            // Running average update
+            avgBinHeight += (bin.height() - avgBinHeight) / count;
+            avgBinWidth += (bin.width() - avgBinWidth) / count;
+            // Update min/max's
+            if (!highestBin || bin.center().y < highestBin->center().y)
+               highestBin = &bin;
+            if (!lowestBin || bin.center().y > lowestBin->center().y)
+               lowestBin = &bin;
+            if (!leftmostBin || bin.center().x < leftmostBin->center().x)
+               leftmostBin = &bin;
+            if (!rightmostBin || bin.center().x > rightmostBin->center().x)
+               rightmostBin = &bin;
+         }
+
+         return *this;
+      }
+   }stats;
+
+   friend std::ostream& operator<<(std::ostream& os, const Stats& stats) {
+      os << "Average Bin Height: " << stats.avgBinHeight << "\n"
+         << "Average Bin Width: " << stats.avgBinWidth << "\n"
+         << "Highest Bin Center Y: " << (stats.highestBin ? stats.highestBin->center().y : 0) << "\n"
+         << "Lowest Bin Center Y: " << (stats.lowestBin ? stats.lowestBin->center().y : 0) << "\n"
+         << "Leftmost Bin Center X: " << (stats.leftmostBin ? stats.leftmostBin->center().x : 0) << "\n"
+         << "Rightmost Bin Center X: " << (stats.rightmostBin ? stats.rightmostBin->center().x : 0) << "\n";
+      return os;
+   }
+   //legacy
    //used on construction
    template <RowOrColumn GroupType>
    void addBinToGroups(const Bin, std::vector<GroupType>&);
