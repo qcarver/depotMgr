@@ -1,90 +1,80 @@
 #ifndef QC_RACK_H
 #define QC_RACK_H
 #include <aruco.h>
-#include "group.h"
 #include <concepts>
-
-template <typename T>
-concept RowOrColumn = std::is_base_of<Group, T>::value && (std::is_same_v<T, Column> || std::is_same_v<T, Row>);
+#include <bin.h>
 
 class Rack{
  public:
-    //Rack(const std::vector<Bin> & bins);
+   //Rack(const std::vector<Bin> & bins);
 
-    // Constructor that accepts any input range of Bin
-    template <std::ranges::input_range Range>
-      requires std::convertible_to<std::ranges::range_value_t<Range>, Bin>
-         Rack(Range&& r);
+   // Constructor that accepts any input range of Bin
+   template <std::ranges::input_range Range>
+     requires std::convertible_to<std::ranges::range_value_t<Range>, Bin>
+        Rack(Range&& r);
 
-    int findBinRow(int id) const;
-    int findBinColumn(int id) const;
-    ~Rack();
+   // return the row number that the bin is in
+   size_t findBinRow(uint32_t bin_id) const;
+
+   // return the column number that the bin is in
+   size_t findBinColumn(uint32_t bin_id) const;
+
+   ~Rack();
 
  private:
+   // Returns the number of columns (slots) in the row at the given index
+   inline size_t numColumnsInRow(size_t rowIndex) const {
+      return slotRows.at(rowIndex).size();
+   }
+   
+   // Splits vector of slots from construction into the member `slotRows`
+   bool buildGridFromExistingBins(const std::vector<Slot>&);
+
+   // Assumes vector already row grouped. Sorts them hi to low
+   bool sortRowOrderByFirstBinInRow();
+
+   // Looks where bins aren't and fills them with empty slots. returns true.
+   bool backFillEmptySlots();
+
+   // Returns Slot pointers at the same index (aka Column) per row of slotRows
+   std::vector<const Slot*> getColumnCrossCut(size_t columnIndex) const;
+
+   // Returns the minimum CenterX value in a cross-cut of slots
+   uint16_t getMinXInCrossCut(std::vector<const Slot*> crossCut, size_t column) const;
+
+   // Returns the number of bins in the longest row (tie okay!)
+   size_t getMaxColumns() const;
+
    // vector of slots where bins can go
    std::vector<Slot> slots;
 
    struct Stats {
       uint16_t avgBinHeight = 0.0;
       uint16_t avgBinWidth = 0.0;
-      const Bin* highestBin = nullptr;   // lowest center().y
-      const Bin* lowestBin = nullptr;    // highest center().y
-      const Bin* leftmostBin = nullptr;  // lowest center().x
-      const Bin* rightmostBin = nullptr; // highest center().x
+      size_t numBins = 0;
 
       template <typename Range>
       auto operator()(const Range& r) {
-         size_t count = 0;
-
          for (const Slot& slot : r) {
             if (!slot.isFilled()) continue;
-            ++count;
+            ++numBins;
             const Bin& bin = slot.bin.value();
             // Running average update
-            avgBinHeight += (bin.height() - avgBinHeight) / count;
-            avgBinWidth += (bin.width() - avgBinWidth) / count;
-            // Update min/max's
-            if (!highestBin || bin.center().y < highestBin->center().y)
-               highestBin = &bin;
-            if (!lowestBin || bin.center().y > lowestBin->center().y)
-               lowestBin = &bin;
-            if (!leftmostBin || bin.center().x < leftmostBin->center().x)
-               leftmostBin = &bin;
-            if (!rightmostBin || bin.center().x > rightmostBin->center().x)
-               rightmostBin = &bin;
+            avgBinHeight += (bin.height() - avgBinHeight) / numBins;
+            avgBinWidth += (bin.width() - avgBinWidth) / numBins;
          }
-
          return *this;
       }
    }stats;
 
    friend std::ostream& operator<<(std::ostream& os, const Stats& stats) {
       os << "Average Bin Height: " << stats.avgBinHeight << "\n"
-         << "Average Bin Width: " << stats.avgBinWidth << "\n"
-         << "Highest Bin Center Y: " << (stats.highestBin ? stats.highestBin->center().y : 0) << "\n"
-         << "Lowest Bin Center Y: " << (stats.lowestBin ? stats.lowestBin->center().y : 0) << "\n"
-         << "Leftmost Bin Center X: " << (stats.leftmostBin ? stats.leftmostBin->center().x : 0) << "\n"
-         << "Rightmost Bin Center X: " << (stats.rightmostBin ? stats.rightmostBin->center().x : 0) << "\n";
+         << "Average Bin Width: " << stats.avgBinWidth << "\n";
       return os;
    }
-   //legacy
-   //used on construction
-   template <RowOrColumn GroupType>
-   void addBinToGroups(const Bin, std::vector<GroupType>&);
     
-
-    //Max vectors of columns and rows and their avg
-    std::vector<Column> columns;
-    std::vector<Row> rows;
+   //Essentially a vector of vectors of rows contaning slots 
+   std::vector<std::vector<Slot>> slotRows;
 };
-
-
-std::ostream& operator<<(std::ostream& str, const Group& group);
-
-bool operator< (const Bin& bin, const Group & group);
-
-bool operator> (const Bin& bin, const Group & group);
-
-bool operator== (const Bin& bin, const Group & group);
 
 #endif

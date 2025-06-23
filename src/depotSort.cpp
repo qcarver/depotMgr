@@ -73,8 +73,7 @@ bool findBin()
 {
     // Use C++'20 views to (bash-like) pipe Markers into Bins, housed in Slots
     Rack rack = markers
-    | std::views::transform([](const aruco::Marker& m) { return Bin(m); })
-    | std::views::transform([](const Bin& b) { return Slot(b); });
+    | std::views::transform([](const aruco::Marker& m) { return Bin(m); });
 
     int row = rack.findBinRow(args.bin_id);
     int column = rack.findBinColumn(args.bin_id);

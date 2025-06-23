@@ -57,7 +57,6 @@ link_directories(${CMAKE_SOURCE_DIR}/include)
 add_executable(depotMgr
     src/depotSort.cpp
     src/bin.cpp
-    src/group.cpp
     src/rack.cpp
     src/argc_argv.hpp
 )
