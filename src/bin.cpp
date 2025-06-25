@@ -1,8 +1,8 @@
 //2023 qcarver@gmail.com MIT license 
 
 #include "bin.h"
-#include "argc_argv.hpp"
-extern ArgcArgvInput aai;
+#include "argc_argv.h"
+extern LaunchArgs::Config config;
 
 Bin::Bin(Bin&& other) noexcept
     : marker(std::move(other.marker))
@@ -12,10 +12,10 @@ Bin::Bin(Bin&& other) noexcept
 
 uint16_t Bin::height() const {
     // marker.getRadius() returns the radius in pixels
-    return marker.getRadius() * 2 * aai.rowToMarkerHeightRatio; 
+    return marker.getRadius() * 2 * config.rowToMarkerHeightRatio; 
 }
 uint16_t Bin::width() const {   
-    return marker.getRadius() * 2 * aai.colToMarkerWidthRatio; // Assuming marker.getRadius() returns the radius in pixels
+    return marker.getRadius() * 2 * config.colToMarkerWidthRatio; // Assuming marker.getRadius() returns the radius in pixels
 }
 
 Bin::Center Bin::center() const {

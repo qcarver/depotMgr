@@ -6,32 +6,6 @@
 
 using namespace aruco;
 
-// Constructor that accepts any input std::range of Bins, organizes from there.
-template <std::ranges::input_range Range>
-requires std::convertible_to<std::ranges::range_value_t<Range>, Bin>
-Rack::Rack(Range&& r)
-    : slots(std::forward<Range>(r).begin(), std::forward<Range>(r).end()) {
-    std::cout << "Rack constructed from Slot range\n";
-
-    // Calculate stats from the slots.. Eg: num bins, average bin width, height, etc.
-    stats(slots); 
-    
-    // turns the range of slots into the member vector of vectors: slotRows
-    buildGridFromExistingBins(slots);
-
-    // order the vectors of 'rows' from top to bottom
-    sortRowOrderByFirstBinInRow();
-
-    // if bins are pulled out, then back fill empty slots in the grid
-    backFillEmptySlots();
-}
-
-/* Constructor that accepts a range of Bins
-template <std::ranges::input_range Range>
-    Rack(Range&& r) : bins(std::forward<Range>(r).begin(), std::forward<Range>(r).end()) {
-        std::cout << "Rack constructed from Bin range\n";
-}*/
-
 /**
  * Builds the grid of slots from existing bins.
  * This function organizes the slots into rows based on their CenterY values,
@@ -200,7 +174,7 @@ size_t Rack::getMaxColumns() const {
 size_t Rack::findBinRow(uint32_t bin_id) const {
     for (size_t row = 0; row < slotRows.size(); ++row) {
         for (const auto& slot : slotRows[row]) {
-            if (slot.bin.has_value() && slot.bin.value().id == bin_id) {
+            if (slot.bin.has_value() && slot.bin.value().marker.id == bin_id) {
                 return row;
             }
         }
@@ -216,7 +190,7 @@ size_t Rack::findBinColumn(uint32_t bin_id) const {
     for (size_t row = 0; row < slotRows.size(); ++row) {
         for (size_t col = 0; col < slotRows[row].size(); ++col) {
             const auto& slot = slotRows[row][col];
-            if (slot.bin.has_value() && slot.bin.value().id == bin_id) {
+            if (slot.bin.has_value() && slot.bin.value().marker.id == bin_id) {
                 return col;
             }
         }

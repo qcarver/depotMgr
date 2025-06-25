@@ -31,13 +31,6 @@ class Bin{
     aruco::Marker marker;
 };
 
-Bin& assignBin(Bin& lhs, const Bin& rhs) {
-    if (&lhs != &rhs) {
-        const_cast<aruco::Marker&>(lhs.marker) = rhs.marker;
-        // Add more fields here if needed in the future
-    }
-    return lhs;
-};
 
 class Slot {
 public:

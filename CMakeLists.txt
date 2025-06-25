@@ -58,7 +58,7 @@ add_executable(depotMgr
     src/depotSort.cpp
     src/bin.cpp
     src/rack.cpp
-    src/argc_argv.hpp
+    src/argc_argv.cpp
 )
 
 # Link against Aruco and OpenCV

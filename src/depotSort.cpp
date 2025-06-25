@@ -35,7 +35,7 @@ or implied, of Rafael Muñoz Salinas.
 #include <vector>
 #include <ranges>
 
-#include "argc_argv.hpp"
+#include "argc_argv.h"
 #include "rack.h"
 #include "bin.h"
 
@@ -48,7 +48,7 @@ cv::Mat InImage;
 aruco::CameraParameters CamParam; //-c
 MarkerDetector MDetector;
 VideoCapture vreader;
-ArgcArgvInput args;  
+LaunchArgs::Config args;  
 
 //params for how long to wait for cv image window to open
 struct wait_for_image {

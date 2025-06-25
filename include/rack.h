@@ -6,12 +6,26 @@
 
 class Rack{
  public:
-   //Rack(const std::vector<Bin> & bins);
-
-   // Constructor that accepts any input range of Bin
+   // B/c templates - this c'tor has to be defined in the header file. :/
+   // Constructor that accepts any input std::range of Bins, organizes from there.
    template <std::ranges::input_range Range>
-     requires std::convertible_to<std::ranges::range_value_t<Range>, Bin>
-        Rack(Range&& r);
+   requires std::convertible_to<std::ranges::range_value_t<Range>, Bin>
+   Rack(Range&& r)
+      : slots(std::forward<Range>(r).begin(), std::forward<Range>(r).end()) {
+      std::cout << "Rack constructed from Slot range\n";
+
+      // Calculate stats from the slots.. Eg: num bins, average bin width, height, etc.
+      stats(slots); 
+      
+      // turns the range of slots into the member vector of vectors: slotRows
+      buildGridFromExistingBins(slots);
+
+      // order the vectors of 'rows' from top to bottom
+      sortRowOrderByFirstBinInRow();
+
+      // if bins are pulled out, then back fill empty slots in the grid
+      backFillEmptySlots();
+   }
 
    // return the row number that the bin is in
    size_t findBinRow(uint32_t bin_id) const;
