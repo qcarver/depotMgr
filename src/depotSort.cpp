@@ -38,7 +38,11 @@ or implied, of Rafael Muñoz Salinas.
 #include "argc_argv.h"
 #include "rack.h"
 #include "bin.h"
-
+using std::cout;
+using std::cerr;
+using std::endl;
+using std::string;
+using std::vector;
 using namespace cv;
 using namespace std;
 using namespace aruco;
@@ -74,6 +78,8 @@ bool findBin()
     // Use C++'20 views to (bash-like) pipe Markers into Bins, housed in Slots
     Rack rack = markers
     | std::views::transform([](const aruco::Marker& m) { return Bin(m); });
+
+    cout << rack;
 
     int row = rack.findBinRow(args.bin_id);
     int column = rack.findBinColumn(args.bin_id);

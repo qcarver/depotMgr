@@ -2,9 +2,9 @@
 
 #include "rack.h"
 #include <iostream>
+#include <iomanip>
 #include <ranges>
 
-using namespace aruco;
 
 /**
  * Builds the grid of slots from existing bins.
@@ -16,17 +16,25 @@ using namespace aruco;
  * 
  * Private helper function called by the constructor.
  */
-bool Rack::buildGridFromExistingBins(const std::vector<Slot>& slots) {
-    // Define the tolerance as half of the average bin width
-    float tolerance = stats.avgBinWidth / 2.0f;
+bool Rack::buildGridFromExistingBins(const Row& slots) {
+    // Define the tolerance as half of the average bin height
+    float tolerance = stats.avgBinHeight / 2.0f;
 
     // Step 1: Ingest the slots into the new vector of vectors
     for (const auto& slot : slots) {
         bool added = false;
+        if (slotRows.empty()) {
+            // If slotRows is empty, create the first row with the current slot
+            slotRows.emplace_back(Row{slot});
+            continue;
+        }
         for (auto& row : slotRows) {
-            // Check if the slot's CenterY is within tolerance of the row's first slot
-            if (!row.empty() && 
-                std::abs(slot.bin.value().center().y - row.front().bin.value().center().y) <= tolerance) {
+            /* Check if the slot's CenterY is within tolerance of the row's first slot*/ float
+            first_bins_vertical_center = row.front().bin.value().center().y,
+            this_bins_vertical_center = slot.bin.value().center().y,
+            vertical_offset_from_beginning_of_row = this_bins_vertical_center - first_bins_vertical_center;
+
+            if (std::abs(vertical_offset_from_beginning_of_row) <= tolerance) {
                 // Insert slot into row in order of ascending bin.CenterX
                 auto it = std::lower_bound(
                     row.begin(), row.end(), slot,
@@ -41,10 +49,13 @@ bool Rack::buildGridFromExistingBins(const std::vector<Slot>& slots) {
         }
         if (!added) {
             // No matching group found, create a new group
-            slotRows.emplace_back(std::vector<Slot>{slot});
+            slotRows.emplace_back(Row{slot});
         }
     }
-
+    // Print each Row using std::ostream << row
+    for (const auto& row : slotRows) {
+        std::cout << "[" << (&row - &slotRows[0]) << "] " << row << std::endl;
+    }
     return true;
 }
 
@@ -57,11 +68,15 @@ bool Rack::buildGridFromExistingBins(const std::vector<Slot>& slots) {
 
 bool Rack::sortRowOrderByFirstBinInRow(){
     std::sort(slotRows.begin(), slotRows.end(),
-        [](const std::vector<Slot>& a, const std::vector<Slot>& b) {
+        [](const Row& a, const Row& b) {
             if (a.empty() || b.empty()) return false;
-            return a.front().bin.value().center().x < b.front().bin.value().center().x;
+            return a.front().bin.value().center().y < b.front().bin.value().center().y;
         }
     );
+
+    std::cout << "sorted row order hi to low:" << std::endl;
+    std::cout << slotRows;
+
     return true;
 }
 
@@ -87,7 +102,7 @@ bool Rack::backFillEmptySlots() {
         // For each column (cross-cut)
         for (size_t column = 0; column < getMaxColumns(); ++column) {
             // Use getColumnCrossCut to get the cross-cut slots
-            std::vector<const Slot*> crossCut = getColumnCrossCut(column);
+            ColumnCrosscut crossCut = getColumnCrossCut(column);
             if (crossCut.empty()) continue;
 
             // Columns aren't aligned yet, should all align the the leftmost slot in the cross-cut
@@ -122,37 +137,39 @@ bool Rack::backFillEmptySlots() {
 }
 
 /**
- * Returns the number of slots down all rows in a given column (index) 
- * Private helper function.
+ * Returns slots at the same column index across all rows.
+ * Using reference_wrapper to store references in vector.
  */
-std::vector<const Slot*> Rack::getColumnCrossCut(size_t column) const {
-    std::vector<const Slot*> crossCut;
+ColumnCrosscut Rack::getColumnCrossCut(size_t columnIndex) const {
+    ColumnCrosscut crossCut;
+    
     for (const auto& row : slotRows) {
-        if (column < row.size()) {
-            crossCut.push_back(&row[column]);
+        if (columnIndex < row.size()) {
+            crossCut.push_back(std::cref(row[columnIndex]));
         }
     }
+    
+    std::cout << "crossCut for column " << columnIndex << ": " << crossCut << std::endl;    
     return crossCut;
 }
 
 /**
- * Return the minimum CenterX value in a cross-cut of slots.
- * crossCut is a vector of Slot pointers, 
- * column is the index of the column being checked. 
- * @returns (slot has atleast 1 bin)? minimum CenterX value found in cross-cut: max uint16_t
- * 
- * Private helper function used by backFillEmptySlots. 
+ * Returns the minimum CenterX value in a cross-cut of slots.
+ * Updated to work with reference_wrapper.
  */
-uint16_t Rack::getMinXInCrossCut(std::vector<const Slot*> crossCut, size_t column) const {
+uint16_t Rack::getMinXInCrossCut(const ColumnCrosscut& crossCut, size_t column) const {
     uint16_t minX = std::numeric_limits<uint16_t>::max();
-    for (const Slot* slotPtr : crossCut) {
-        if (slotPtr && slotPtr->bin.has_value()) {
-            uint16_t centerX = slotPtr->bin.value().center().x;
-            if (centerX < minX) {
-                minX = centerX;
+    
+    for (const auto& slotRef : crossCut) {
+        const Slot& slot = slotRef.get(); // Get the actual reference
+        if (slot.isFilled()) {
+            uint16_t x = slot.bin.value().center().x;
+            if (x < minX) {
+                minX = x;
             }
         }
     }
+    
     return minX;
 }
 
@@ -201,5 +218,3 @@ size_t Rack::findBinColumn(uint32_t bin_id) const {
 Rack::~Rack()
 {
 }
-
-
