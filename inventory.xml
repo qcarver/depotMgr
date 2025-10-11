@@ -9,7 +9,131 @@
 	<bin id="115" name="CD/DVD Roms"/>
 	<bin id="12" name="Optics"/>
 	<bin id="111" name="Belts"/>
-	<bin id="17" name="Paint Brushes"/>
+	<bin id="22" name="Paint/Brushes"/>
+		<item>
+			<name>Super Glue</name>
+			<description>Cyanoacrylate in a foil tube with a plastic cap, 0.3 grams</description>
+		</item>
+		<item>
+			<name>Monstera Stamp Blocks</name>
+			<quantity>2</quantity>
+		</item>
+		<item>
+			<name>Burnt Umber</name>
+			<brand>Master's Touch</brand>
+			<description>Foil tube with cap, 1.25 fluid ounces (37 milliliters)</description>
+			<model>P080076</model>
+			<cost>$5.49</cost>
+			<type>Oil Paint</type>
+		</item>
+		<item>
+			<name>Testors Enamel Paints (Set)</name>
+			<container>6x4 inch clear ziplock bag</container>
+			<contents>
+				<item>
+					<name>Testors Enamel Paint - White</name>
+					<brand>Testors</brand>
+					<quantity>2</quantity>
+					<description>1/4 oz white enamel paint in glass jar</description>
+				</item>
+				<item>
+					<name>Testors Enamel Paint - Blue</name>
+					<brand>Testors</brand>
+					<quantity>1</quantity>
+					<description>1/4 oz blue enamel paint in glass jar</description>
+				</item>
+				<item>
+					<name>Testors Enamel Paint - Yellow</name>
+					<brand>Testors</brand>
+					<quantity>2</quantity>
+					<description>1/4 oz yellow enamel paint in glass jar</description>
+				</item>
+				<item>
+					<name>Testors Enamel Paint - Black</name>
+					<brand>Testors</brand>
+					<quantity>1</quantity>
+					<description>1/4 oz black enamel paint in glass jar</description>
+				</item>
+				<item>
+					<name>Testors Enamel Paint - Silver</name>
+					<brand>Testors</brand>
+					<quantity>1</quantity>
+					<description>1/4 oz silver enamel paint in glass jar</description>
+				</item>
+				<item>
+					<name>Testors Enamel Paint - Gold</name>
+					<brand>Testors</brand>
+					<quantity>1</quantity>
+					<description>1/4 oz gold enamel paint in glass jar</description>
+				</item>
+			</contents>
+		</item>
+		<item>
+			<name>Cream Makeup (Witches Green)</name>
+			<brand>Spirit</brand>
+			<quantity>1</quantity>
+			<description>Plastic squeezy tube, 1 ounce</description>
+		</item>
+		<item>
+			<name>Washable Face Paint - White</name>
+			<quantity>1</quantity>
+			<description>Squatty cylinder, 0.5 oz, washable white paint</description>
+		</item>
+		<item>
+			<name>Aluminum</name>
+			<brand>Model Master</brand>
+			<quantity>1</quantity>
+			<description>Round glass, 1/2 fluid ounce</description>
+		</item>
+		<item>
+			<name>Custom Enamel</name>
+			<brand>Model Master</brand>
+			<quantity>1</quantity>
+			<description>Round glass, 1 fluid ounce</description>
+		</item>
+		<item>
+			<name>Yellow</name>
+			<brand>Delta CeramCoat</brand>
+			<quantity>1</quantity>
+			<description>Acrylic paint tube, 2 fluid ounces</description>
+		</item>
+		<item>
+			<name>Terracotta</name>
+			<brand>Delta CeramCoat</brand>
+			<quantity>1</quantity>
+			<description>Acrylic paint tube, 2 fluid ounces</description>
+		</item>
+		<item>
+			<name>White</name>
+			<brand>Apple Barrel</brand>
+			<quantity>1</quantity>
+			<description>Acrylic paint tube, 2 fluid ounces</description>
+		</item>
+		<item>
+			<name>Black</name>
+			<brand>Delta CeramCoat</brand>
+			<quantity>1</quantity>
+			<description>Acrylic paint tube, 2 fluid ounces</description>
+		</item>
+		<item>
+			<name>Maroon</name>
+			<brand>Delta CeramCoat</brand>
+			<quantity>1</quantity>
+			<description>Acrylic paint tube, 2 fluid ounces</description>
+		</item>
+		<item>
+			<name>Neon Blue</name>
+			<brand>Apple Barrel</brand>
+			<quantity>1</quantity>
+			<description>Acrylic paint tube, 2 fluid ounces</description>
+		</item>
+		<item>
+			<name>Grecian Gold</name>
+			<brand>Rub'n'Buff®</brand>
+			<quantity>1</quantity>
+			<description>Wax metallic finish, 1/2 ounce</description>
+		</item>
+	</bin>
 	<bin id="24" name="Pull Card "/>
 	<bin id="28" name="Pre 2K Micros"/>
 	<bin id="29" name="Logic Gate ICs">
@@ -116,6 +240,27 @@
 	<bin id="80" name="Merch Springs 2"/>
 	<bin id="77" name="Merch Springs1"/>
 	<bin id="81" name="Models"/>
+		<item>
+			<name>Fiber Optic Bushes</name>
+			<quantity>2</quantity>
+			<container>Small plastic ziplock bag</container>
+		</item>
+		<item>
+			<name>TCW Modeling Paste</name>
+			<brand>TCW</brand>
+			<description>Nice and thick, white, 8 ounces, plastic mini Nutella-shaped jar</description>
+		</item>
+		<item>
+			<name>Tactra Masking Tape</name>
+			<brand>Tactra</brand>
+			<model>MT108</model>
+			<description>1/8 inch by 20 feet</description>
+		</item>
+		<item>
+			<name>Super Glue</name>
+			<description>Cyanoacrylate in a foil tube with a plastic cap, 0.3 grams</description>
+		</item>
+	</bin>
 	<bin id="97" name="light switch"/>
 	<bin id="59" name="Interfaces LCD">
 		<item>

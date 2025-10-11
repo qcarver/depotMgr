@@ -142,10 +142,18 @@ bool Rack::backFillEmptySlots() {
  */
 ColumnCrosscut Rack::getColumnCrossCut(size_t columnIndex) const {
     ColumnCrosscut crossCut;
-    
+
+    float tolerance = stats.avgBinWidth / 2.0f;
+    float columnsWidth  = stats.rightmostBin->center().x - stats.leftmostBin->center().x; 
+    float avgInterBinWidth = columnsWidth / stats.numColumns - 1; // TODO: move to stats? reconcile with avgBinWidht? 
+    float columnIndexXish = stats.leftmostBin->center().x + (columnIndex * avgInterBinWidth);
+
     for (const auto& row : slotRows) {
-        if (columnIndex < row.size()) {
-            crossCut.push_back(std::cref(row[columnIndex]));
+        for (size_t i = 0; i < row.size(); ++i) {
+            float binCenterX = row[i].bin.value().center().x;
+            if (std::abs(binCenterX - columnIndexXish) <= tolerance) {
+                crossCut.push_back(std::cref(row[i]));
+            }
         }
     }
     
@@ -159,8 +167,9 @@ ColumnCrosscut Rack::getColumnCrossCut(size_t columnIndex) const {
  */
 uint16_t Rack::getMinXInCrossCut(const ColumnCrosscut& crossCut, size_t column) const {
     uint16_t minX = std::numeric_limits<uint16_t>::max();
-    
-    for (const auto& slotRef : crossCut) {
+
+        for (const auto &slotRef : crossCut)
+    {
         const Slot& slot = slotRef.get(); // Get the actual reference
         if (slot.isFilled()) {
             uint16_t x = slot.bin.value().center().x;
@@ -169,7 +178,7 @@ uint16_t Rack::getMinXInCrossCut(const ColumnCrosscut& crossCut, size_t column) 
             }
         }
     }
-    
+
     return minX;
 }
 

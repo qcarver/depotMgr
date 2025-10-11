@@ -70,27 +70,29 @@ class Rack{
    Row slots;
 
     struct Stats {
-        uint16_t avgBinHeight = 0;
-        uint16_t avgBinWidth = 0;
+        int16_t avgBinHeight = 0;
+        int16_t avgBinWidth = 0;
         const Bin* highestBin = nullptr;   // lowest center().y
         const Bin* lowestBin = nullptr;    // highest center().y
         const Bin* leftmostBin = nullptr;  // lowest center().x
         const Bin* rightmostBin = nullptr; // highest center().x
+        int16_t numColumns = 0; // Number of columns in the rack
 
         template <typename Range>
         Stats& operator()(const Range& r) {
             size_t count = 0;
             avgBinHeight = 0;
             avgBinWidth = 0;
-            highestBin = lowestBin = leftmostBin = rightmostBin = nullptr;
-
+            
+            // First pass: calculate averages
             for (const Slot& slot : r) {
                 if (!slot.isFilled()) continue;
                 const Bin& bin = slot.bin.value();
                 ++count;
-                avgBinHeight += (bin.height() - avgBinHeight) / count;
-                avgBinWidth += (bin.width() - avgBinWidth) / count;
-
+                avgBinHeight += bin.height();
+                avgBinWidth += bin.width();
+                
+                // Update extremes...
                 if (!highestBin || bin.center().y < highestBin->center().y)
                     highestBin = &bin;
                 if (!lowestBin || bin.center().y > lowestBin->center().y)
@@ -100,6 +102,38 @@ class Rack{
                 if (!rightmostBin || bin.center().x > rightmostBin->center().x)
                     rightmostBin = &bin;
             }
+            
+            avgBinHeight = count ? avgBinHeight / count : 0;
+            avgBinWidth = count ? avgBinWidth / count : 0;
+            
+            // Use consistent tolerance for all bins
+            int tolerance = avgBinWidth / 2;
+            
+            
+            std::vector<int> uniqueXs;
+
+            // Second pass: find unique X coordinates using consistent tolerance
+            for (const Slot& slot : r) {
+                if (!slot.isFilled()) continue;
+                const int binX = slot.bin.value().center().x;
+                
+                bool isUnique = true;
+                
+                // Check if this X is close to any existing unique X
+                for (int uniqueX : uniqueXs) {
+                    if (std::abs(binX - uniqueX) <= tolerance) {
+                        isUnique = false;
+                        break; // Found a close match, not unique
+                    }
+                }
+                
+                // Only add if it's truly unique (not close to existing ones)
+                if (isUnique) {
+                    uniqueXs.push_back(binX);
+                }
+            }
+            
+            numColumns = uniqueXs.size();
             return *this;
         }
     } stats;
